@@ -14,7 +14,13 @@
 		"baseUrl": ".",
 		"types": ["webpack-env", "jest"],
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["src/*"],
+			"@services/*": ["src/services/*"],
+			"@models/*": ["src/models/*"],
+			"~models/*": ["src/models/*"],
+			"@views/*": ["src/views/*"],
+			"@styles/*": ["src/styles/*"],
+			"@assets/*": ["src/assets/*"]
 		},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	},
