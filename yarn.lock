@@ -4058,6 +4058,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "axios@npm:0.25.0"
+  dependencies:
+    follow-redirects: ^1.14.7
+  checksum: 2a8a3787c05f2a0c9c3878f49782357e2a9f38945b93018fb0c4fd788171c43dceefbb577988628e09fea53952744d1ecebde234b561f1e703aa43e0a598a3ad
+  languageName: node
+  linkType: hard
+
 "babel-code-frame@npm:^6.22.0, babel-code-frame@npm:^6.26.0":
   version: 6.26.0
   resolution: "babel-code-frame@npm:6.26.0"
@@ -7469,6 +7478,7 @@ __metadata:
     "@vue/eslint-config-prettier": ^6.0.0
     "@vue/eslint-config-typescript": ^7.0.0
     "@vue/test-utils": ^2.0.0-0
+    axios: ^0.25.0
     babel-plugin-transform-imports: ^2.0.0
     core-js: ^3.6.5
     eslint: ^6.7.2
@@ -7482,6 +7492,7 @@ __metadata:
     sass-loader: ^10.1.0
     typescript: ~4.1.5
     vue: ^3.0.0
+    vue-axios: ^3.4.0
     vue-cli-plugin-quasar: ~4.0.4
     vue-jest: ^5.0.0-0
     vue-router: ^4.0.0-0
@@ -8156,7 +8167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.7":
   version: 1.14.7
   resolution: "follow-redirects@npm:1.14.7"
   peerDependenciesMeta:
@@ -17698,6 +17709,16 @@ __metadata:
   version: 1.1.2
   resolution: "vm-browserify@npm:1.1.2"
   checksum: 10a1c50aab54ff8b4c9042c15fc64aefccce8d2fb90c0640403242db0ee7fb269f9b102bdb69cfb435d7ef3180d61fd4fb004a043a12709abaf9056cfd7e039d
+  languageName: node
+  linkType: hard
+
+"vue-axios@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "vue-axios@npm:3.4.0"
+  peerDependencies:
+    axios: ">= 0.20.0"
+    vue: ^3.0.0 || ^2.0.0
+  checksum: b8461f7fbff4780f65c0b2390a5e7bffc719ea116f8f8b32993e63a2444c524dd60da66d4a97a96af464774fe3729fbbfc1155982d58e2cc1624a41a6a9a9b75
   languageName: node
   linkType: hard
 
