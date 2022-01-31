@@ -1,6 +1,6 @@
 <template>
 	<q-layout view="lHh Lpr lFf">
-		<q-header elevated class="glossy">
+		<q-header elevated>
 			<q-toolbar>
 				<q-btn
 					flat
@@ -89,26 +89,21 @@
 		</q-drawer>
 
 		<q-page-container>
-			<HelloWorld />
+			<router-view />
 		</q-page-container>
 	</q-layout>
 </template>
 
 <script>
-import { ref } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent, ref } from 'vue';
 
-export default {
+export default defineComponent({
 	name: 'LayoutDefault',
-
-	components: {
-		HelloWorld,
-	},
 
 	setup() {
 		return {
 			leftDrawerOpen: ref(false),
 		};
 	},
-};
+});
 </script>
