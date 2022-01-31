@@ -19,6 +19,8 @@ module.exports = {
 				'@services': path.resolve(__dirname, 'src/services/'),
 				'@assets': path.resolve(__dirname, 'src/assets/'),
 				'@views': path.resolve(__dirname, 'src/views/'),
+				'@mixins': path.resolve(__dirname, 'src/mixins/'),
+				'@store': path.resolve(__dirname, 'src/store/'),
 			},
 			extensions: ['.ts', '.js', '.vue', '.json', '.d.ts'],
 		},

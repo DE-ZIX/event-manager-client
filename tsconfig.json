@@ -20,7 +20,10 @@
 			"~models/*": ["src/models/*"],
 			"@views/*": ["src/views/*"],
 			"@styles/*": ["src/styles/*"],
-			"@assets/*": ["src/assets/*"]
+			"@assets/*": ["src/assets/*"],
+			"@mixins/*": ["src/mixins/*"],
+			"@components/*": ["src/components/*"],
+			"@store/*": ["src/store/*"]
 		},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	},
@@ -29,7 +32,8 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		"tests/**/*.ts",
-		"tests/**/*.tsx"
+		"tests/**/*.tsx",
+		"src/mixins/globals.js"
 	],
 	"exclude": ["node_modules"]
 }
