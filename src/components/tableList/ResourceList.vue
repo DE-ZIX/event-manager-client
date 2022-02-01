@@ -1,0 +1,30 @@
+<template>
+	<entity-list :service="service" :type="classType" :typeName="typeName" />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import EntityList from '@/components/tableList/EntityList.vue';
+import { ResourceService } from '@services/eventManagerAPI';
+import { Resource } from '@/models';
+
+export default defineComponent({
+	components: {
+		EntityList,
+	},
+	setup() {
+		const service = new ResourceService();
+		const classType = new Resource();
+
+		return {
+			service,
+			classType,
+		};
+	},
+	computed: {
+		typeName(): string {
+			return this.classType.constructor.name;
+		},
+	},
+});
+</script>
