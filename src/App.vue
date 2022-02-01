@@ -13,11 +13,18 @@
 
 				<q-toolbar-title> Quasar App </q-toolbar-title>
 
-				<div>Quasar v{{ $q.version }}</div>
+				<div>
+					<q-toggle
+						v-model="dark"
+						color="secondary"
+						label="Dark Theme"
+						@click="setDark(dark)"
+					/>
+				</div>
 			</q-toolbar>
 		</q-header>
 
-		<q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-grey-2">
+		<q-drawer v-model="leftDrawerOpen" show-if-above bordered>
 			<q-list>
 				<q-item-label header>Essential Links</q-item-label>
 				<q-item clickable tag="a" target="_blank" href="https://quasar.dev">
@@ -89,21 +96,56 @@
 		</q-drawer>
 
 		<q-page-container>
-			<router-view />
+			<div class="q-pa-lg">
+				<router-view />
+			</div>
 		</q-page-container>
 	</q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { Dark, LocalStorage } from 'quasar';
 
 export default defineComponent({
 	name: 'LayoutDefault',
 
 	setup() {
+		const darkFromStorage = LocalStorage.getItem('dark');
+		const followOS = true;
+		let dark = false;
+		if (darkFromStorage !== null) {
+			dark = darkFromStorage as boolean;
+		} else {
+			dark =
+				window.matchMedia &&
+				window.matchMedia('(prefers-color-scheme: dark)').matches;
+		}
+
 		return {
 			leftDrawerOpen: ref(false),
+			dark: ref(dark),
+			followOS: ref(followOS),
 		};
+	},
+	methods: {
+		setDark(value: boolean) {
+			this.dark = value;
+			Dark.set(value);
+			LocalStorage.set('dark', value);
+		},
+	},
+	created() {
+		if (this.followOS) {
+			window
+				.matchMedia('(prefers-color-scheme: dark)')
+				.addEventListener('change', (e) => {
+					const newColorScheme = e.matches ? true : false;
+					this.dark = newColorScheme;
+					this.setDark(this.dark);
+				});
+		}
+		this.setDark(this.dark);
 	},
 });
 </script>
