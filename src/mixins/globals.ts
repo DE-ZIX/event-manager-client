@@ -1,5 +1,6 @@
 import { useQuasar } from 'quasar';
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
 	setup() {
 		const $q = useQuasar();
 		return {
@@ -7,11 +8,11 @@ export default {
 		};
 	},
 	methods: {
-		$showError(error, message = 'Something went wrong') {
+		$showError(error = '', message = 'Something went wrong') {
 			if (error) console.log(error);
 			this.$q.notify({
 				message: message,
 			});
 		},
 	},
-};
+});
