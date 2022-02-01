@@ -1,6 +1,6 @@
 export default class ConsultListMetadata {
-	public total?: number;
-	public constructor(total?: number) {
+	public total = 0;
+	public constructor(total: number) {
 		this.total = total;
 	}
 }

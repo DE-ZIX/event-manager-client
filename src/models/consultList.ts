@@ -1,10 +1,10 @@
-import { ConsultListMetadata, Class, Author, Resource, Event } from '.';
-export default class ConsultList {
+import { ConsultListMetadata } from '.';
+export default class ConsultList<T> {
 	public metadata?: ConsultListMetadata;
-	public items?: Array<Class | Event | Author | Resource>;
+	public items?: Array<T>;
 
-	public constructor(consultList?: ConsultList);
-	public constructor(consultList?: Partial<ConsultList>) {
+	public constructor(consultList?: ConsultList<T>);
+	public constructor(consultList?: Partial<ConsultList<T>>) {
 		Object.assign(this, consultList);
 	}
 }
