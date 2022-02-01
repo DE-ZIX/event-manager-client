@@ -4,38 +4,40 @@ import { EventManagerAPIService } from '.';
 export default class ResourceService {
 	private baseEndpoint = 'resources';
 
-	public async getResources(): Promise<ConsultList> {
-		const response = await EventManagerAPIService.get(this.baseEndpoint);
-		return response.data as ConsultList;
+	public async getMultiple(): Promise<ConsultList<Resource>> {
+		const response = await EventManagerAPIService.get<ConsultList<Resource>>(
+			this.baseEndpoint,
+		);
+		return response.data;
 	}
 
-	public async getResource(id: number): Promise<Resource> {
-		const response = await EventManagerAPIService.get(
+	public async get(id: number): Promise<Resource> {
+		const response = await EventManagerAPIService.get<Resource>(
 			`${this.baseEndpoint}/${id}`,
 		);
-		return response.data as Resource;
+		return response.data;
 	}
 
-	public async postResource(resource: Resource): Promise<Resource> {
-		const response = await EventManagerAPIService.post(
+	public async post(resource: Resource): Promise<Resource> {
+		const response = await EventManagerAPIService.post<Resource>(
 			this.baseEndpoint,
 			resource,
 		);
-		return response.data as Resource;
+		return response.data;
 	}
 
-	public async putResource(resource: Resource): Promise<Resource> {
-		const response = await EventManagerAPIService.put(
+	public async put(resource: Resource): Promise<Resource> {
+		const response = await EventManagerAPIService.put<Resource>(
 			this.baseEndpoint,
 			resource,
 		);
-		return response.data as Resource;
+		return response.data;
 	}
 
-	public async deleteResource(id: number): Promise<string> {
-		const response = await EventManagerAPIService.delete(
+	public async delete(id: number): Promise<string> {
+		const response = await EventManagerAPIService.delete<string>(
 			`${this.baseEndpoint}/${id}`,
 		);
-		return response.data as string;
+		return response.data;
 	}
 }

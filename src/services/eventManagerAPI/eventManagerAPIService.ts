@@ -8,42 +8,45 @@ export default class EventManagerAPIService {
 		return EventManagerAPIService._eventManagerAPIServiceBaseURL;
 	}
 
-	public static async get<T = unknown, R = AxiosResponse<T>, D = unknown>(
+	public static async get<T = unknown, D = unknown>(
 		requestURL: string,
 		config?: AxiosRequestConfig<D>,
-	): Promise<R> {
-		return axios.get(this._eventManagerAPIServiceBaseURL + requestURL, config);
+	): Promise<AxiosResponse<T>> {
+		return axios.get<T>(
+			this._eventManagerAPIServiceBaseURL + requestURL,
+			config,
+		);
 	}
 
-	public static async post<T = unknown, R = AxiosResponse<T>, D = unknown>(
+	public static async post<T = unknown, D = unknown>(
 		requestURL: string,
 		data?: D,
 		config?: AxiosRequestConfig<D>,
-	): Promise<R> {
-		return axios.post(
+	): Promise<AxiosResponse<T>> {
+		return axios.post<T>(
 			this._eventManagerAPIServiceBaseURL + requestURL,
 			data,
 			config,
 		);
 	}
 
-	public static async put<T = unknown, R = AxiosResponse<T>, D = unknown>(
+	public static async put<T = unknown, D = unknown>(
 		requestURL: string,
 		data?: D,
 		config?: AxiosRequestConfig<D>,
-	): Promise<R> {
-		return axios.put(
+	): Promise<AxiosResponse<T>> {
+		return axios.put<T>(
 			this._eventManagerAPIServiceBaseURL + requestURL,
 			data,
 			config,
 		);
 	}
 
-	public static async delete<T = unknown, R = AxiosResponse<T>, D = unknown>(
+	public static async delete<T = unknown, D = unknown>(
 		requestURL: string,
 		config?: AxiosRequestConfig<D>,
-	): Promise<R> {
-		return axios.delete(
+	): Promise<AxiosResponse<T>> {
+		return axios.delete<T>(
 			this._eventManagerAPIServiceBaseURL + requestURL,
 			config,
 		);
