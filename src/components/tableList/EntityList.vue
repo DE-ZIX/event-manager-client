@@ -4,21 +4,24 @@
 		<table-list
 			:items="consultList"
 			ref="list"
-			:type="typeName"
+			:type="type"
+			:typeName="typeName"
 			:loading="loading"
+			v-model:pageInformation="pageInformation"
+			@request="request"
 		/>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue';
+import { defineComponent, ref, PropType, reactive } from 'vue';
 import TableList from '@/components/tableList/TableList.vue';
 import {
 	EventService,
 	ClassService,
 	ResourceService,
 } from '@services/eventManagerAPI';
-import { ConsultList } from '@/models';
+import { ConsultList, ConsultListMetadata } from '@/models';
 
 export default defineComponent({
 	name: 'EntityList',
@@ -49,6 +52,13 @@ export default defineComponent({
 		return {
 			consultList,
 			loading,
+			pageInformation: reactive({
+				page: 1,
+				descending: true,
+				sortBy: 'id',
+				rowsPerPage: 5,
+				rowsNumber: 0,
+			}),
 		};
 	},
 	computed: {
@@ -62,7 +72,7 @@ export default defineComponent({
 			(this.service.getMultiple() as Promise<ConsultList<T>>)
 				.then((data: ConsultList<T>) => {
 					Object.assign(this.consultList, data);
-					(this.$refs.list as typeof TableList).updatePagination(data);
+					this.updatePagination(data.metadata);
 				})
 				.catch((error) => {
 					this.$showError(error, 'Error fetching');
@@ -71,11 +81,22 @@ export default defineComponent({
 					this.loading = false;
 				});
 		},
+		updatePagination(metadata?: ConsultListMetadata) {
+			this.pageInformation.page = 1;
+			this.pageInformation.rowsNumber = metadata ? metadata.total : 0;
+		},
+		typedFetch() {
+			const { type } = this;
+			type T = typeof type;
+			this.fetch<T>();
+		},
+		request(props: unknown) {
+			Object.assign(this.pageInformation, props);
+			this.typedFetch();
+		},
 	},
 	created() {
-		const { type } = this;
-		type T = typeof type;
-		this.fetch<T>();
+		this.typedFetch();
 	},
 });
 </script>

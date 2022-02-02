@@ -1,4 +1,8 @@
-import { resourceColumnsConfig } from '@/composables/views/tableList/columns/index';
+import {
+	resourceColumnsConfig,
+	eventColumnsConfig,
+	classColumnsConfig,
+} from '@/composables/views/tableList/columns/index';
 
 export default function () {
 	const commonPreColumns = [
@@ -22,9 +26,23 @@ export default function () {
 		...commonPostColumns,
 	];
 
+	const classColumns = [
+		...commonPreColumns,
+		...classColumnsConfig,
+		...commonPostColumns,
+	];
+
+	const eventColumns = [
+		...commonPreColumns,
+		...eventColumnsConfig,
+		...commonPostColumns,
+	];
+
 	return {
 		commonPreColumns,
 		commonPostColumns,
 		resourceColumns,
+		classColumns,
+		eventColumns,
 	};
 }

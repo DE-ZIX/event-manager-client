@@ -1,12 +1,23 @@
 <template>
 	<div>
 		<q-table
-			v-model:pagination="pageInformation"
+			v-model:pagination="pageInformationComp"
 			:rows="itemsComp"
 			:columns="columns"
+			:loading="loading"
+			@request="handleRequest"
 		>
+			<template v-slot:body-cell-keywords="data" v-if="isResource">
+				<q-td :props="data">
+					<div class="q-gutter-x-sm">
+						<q-badge v-for="keyword in data.row.keywords" :key="keyword">
+							keyword
+						</q-badge>
+					</div>
+				</q-td>
+			</template>
 			<template v-slot:body-cell-actions="data">
-				<q-td>
+				<q-td :props="data">
 					<resource-list-actions :data="data" v-if="isResource" />
 					<class-list-actions :data="data" v-if="isClass" />
 					<event-list-actions :data="data" v-if="isEvent" />
@@ -18,58 +29,67 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { ConsultList } from '@/models';
 import EventListActions from '@/components/tableList/EventListActions.vue';
 import ResourceListActions from '@/components/tableList/ResourceListActions.vue';
 import ClassListActions from '@/components/tableList/ClassListActions.vue';
 import { columns as columnsConfig } from '@/composables/views/tableList/index';
-import { Resource } from '@/models/';
 
 export default defineComponent({
 	props: {
+		type: {
+			type: Object as PropType<unknown>,
+			required: true,
+		},
 		items: ConsultList,
-		type: { type: String, required: true },
+		typeName: { typeName: String, required: true },
+		loading: Boolean,
+		pageInformation: Object as PropType<unknown>,
 	},
 	components: {
 		EventListActions,
 		ResourceListActions,
 		ClassListActions,
 	},
-	setup() {
-		const { resourceColumns } = columnsConfig();
-		const columns = ref(resourceColumns);
-
-		return {
-			columns,
-			pageInformation: ref({
-				page: 1,
-				descending: true,
-				sortBy: 'id',
-				rowsPerPage: 5,
-				rowsNumber: 0,
-			}),
-		};
-	},
+	emits: ['update:pageInformation', 'request'],
 	computed: {
+		pageInformationComp: {
+			get() {
+				return this.pageInformation;
+			},
+			set(val: unknown) {
+				this.$emit('update:pageInformation', val);
+			},
+		},
 		isResource() {
-			return this.type === 'resource';
+			return this.typeName === 'Resource';
 		},
 		isClass() {
-			return this.type === 'class';
+			return this.typeName === 'Class';
 		},
 		isEvent() {
-			return this.type === 'event';
+			return this.typeName === 'Event';
 		},
 		itemsComp() {
 			return this.items ? this.items.items : [];
 		},
+		columns(): unknown[] {
+			if (this.isResource) {
+				return columnsConfig().resourceColumns;
+			}
+			if (this.isClass) {
+				return columnsConfig().classColumns;
+			}
+			if (this.isEvent) {
+				return columnsConfig().eventColumns;
+			}
+			return [];
+		},
 	},
 	methods: {
-		updatePagination(data: ConsultList<Resource>) {
-			this.pageInformation.page = 1;
-			this.pageInformation.rowsNumber =
-				data && data.metadata ? data.metadata.total : 0;
+		handleRequest(props: unknown) {
+			this.$emit('request', props);
 		},
 	},
 });
