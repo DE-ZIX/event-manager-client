@@ -44,13 +44,16 @@ import {
 	ConsultListMetadata,
 	Pagination,
 	PageInformation,
+	Resource,
+	Class,
+	Event,
 } from '@/models';
 
 export default defineComponent({
 	name: 'EntityList',
 	props: {
 		type: {
-			type: Object as PropType<unknown>,
+			type: Object as PropType<Class | Resource | Event>,
 			required: true,
 		},
 		service: {
@@ -92,7 +95,7 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		fetch<T>() {
+		fetch<T extends Class | Resource | Event>() {
 			const pag = new PageInformation(this.pageInformation);
 			const pagination = new Pagination(new PageInformation(pag));
 			this.loading = true;
