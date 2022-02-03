@@ -1,12 +1,20 @@
-import { ConsultList, Resource } from '@/models';
+import { ConsultList, Resource, Pagination } from '@/models';
 import { EventManagerAPIService } from '.';
 
 export default class ResourceService {
 	private baseEndpoint = 'resources';
 
-	public async getMultiple(): Promise<ConsultList<Resource>> {
+	public async getMultiple(
+		pagination?: Pagination,
+	): Promise<ConsultList<Resource>> {
+		const config = {
+			params: {
+				pagination,
+			},
+		};
 		const response = await EventManagerAPIService.get<ConsultList<Resource>>(
 			this.baseEndpoint,
+			config,
 		);
 		return response.data;
 	}
