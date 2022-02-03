@@ -5,3 +5,5 @@ export { default as ConsultListMetadata } from './consultListMetadata';
 export { default as ConsultList } from './consultList';
 export { default as Author } from './author';
 export { default as Collection } from './collection';
+export { default as Pagination } from './pagination';
+export { default as PageInformation } from './pageInformation';
