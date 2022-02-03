@@ -11,6 +11,66 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'About',
 		component: () => import('@/views/About.vue'),
 	},
+	{
+		path: '/classes',
+		name: 'classesIndex',
+		component: () => import('@/views/classes/index.vue'),
+	},
+	{
+		name: 'addClass',
+		path: '/classes/add',
+		component: () => import('@/views/classes/add.vue'),
+	},
+	{
+		name: 'editClass',
+		path: '/classes/:id/edit',
+		component: () => import('@/views/classes/edit.vue'),
+	},
+	{
+		name: 'detailsClass',
+		path: '/classes/:id',
+		component: () => import('@/views/classes/details.vue'),
+	},
+	{
+		path: '/events',
+		name: 'eventsIndex',
+		component: () => import('@/views/events/index.vue'),
+	},
+	{
+		name: 'addEvent',
+		path: '/events/add',
+		component: () => import('@/views/events/add.vue'),
+	},
+	{
+		name: 'editEvent',
+		path: '/events/:id/edit',
+		component: () => import('@/views/events/edit.vue'),
+	},
+	{
+		name: 'detailsEvent',
+		path: '/events/:id',
+		component: () => import('@/views/events/details.vue'),
+	},
+	{
+		path: '/resources',
+		name: 'resourcesIndex',
+		component: () => import('@/views/resources/index.vue'),
+	},
+	{
+		name: 'addResource',
+		path: '/resources/add',
+		component: () => import('@/views/resources/add.vue'),
+	},
+	{
+		name: 'editResource',
+		path: '/resources/:id/edit',
+		component: () => import('@/views/resources/edit.vue'),
+	},
+	{
+		name: 'detailsResource',
+		path: '/resources/:id',
+		component: () => import('@/views/resources/details.vue'),
+	},
 ];
 
 const router = createRouter({
