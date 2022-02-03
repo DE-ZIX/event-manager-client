@@ -1,24 +1,7 @@
 <template>
 	<div>
-		<router-link
-			:to="{ name: `details${typeName}`, params: { id: modelValue.id } }"
-			target="_blank"
-		>
-			<q-btn icon="open_in_new" flat round color="primary">
-				<q-tooltip>
-					<span>Open in New Tab</span>
-				</q-tooltip>
-			</q-btn>
-		</router-link>
-		<router-link
-			:to="{ name: `edit${typeName}`, params: { id: modelValue.id } }"
-		>
-			<q-btn icon="o_edit" flat round color="primary">
-				<q-tooltip>
-					<span>Edit {{ typeCapitalized }}</span>
-				</q-tooltip>
-			</q-btn>
-		</router-link>
+		<entity-open-btn :modelValue="modelValue" :typeName="typeName" />
+		<entity-edit-btn :modelValue="modelValue" :typeName="typeName" />
 		<q-btn
 			icon="o_delete"
 			flat
@@ -44,6 +27,7 @@
 import { Class, Resource, Event } from '@/models';
 import { defineComponent, PropType, ref } from 'vue';
 import ConfirmDeleteModal from '@/components/tableList/ConfirmDeleteModal.vue';
+import EntityEditBtn from '@/components/EntityEditBtn.vue';
 
 export default defineComponent({
 	props: {
@@ -56,6 +40,7 @@ export default defineComponent({
 	},
 	components: {
 		ConfirmDeleteModal,
+		EntityEditBtn,
 	},
 	computed: {
 		typeNamePlural() {
