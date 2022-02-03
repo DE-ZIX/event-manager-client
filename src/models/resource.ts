@@ -16,4 +16,8 @@ export default class Resource {
 	public constructor(resource?: Partial<Resource>) {
 		Object.assign(this, resource);
 	}
+
+	public getName(): string {
+		return this.title || '';
+	}
 }

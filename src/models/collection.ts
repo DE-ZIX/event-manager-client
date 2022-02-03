@@ -10,4 +10,8 @@ export default class Collection {
 	public constructor(collection?: Partial<Collection>) {
 		Object.assign(this, collection);
 	}
+
+	public getName(): string {
+		return this.title || '';
+	}
 }
