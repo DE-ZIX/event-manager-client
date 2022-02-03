@@ -1,4 +1,4 @@
-import { Author } from '.';
+import { Author, Collection } from '.';
 
 export default class Resource {
 	public id?: number;
@@ -11,7 +11,7 @@ export default class Resource {
 	public responsibleAuthor?: Author;
 	public keywords?: Array<string>;
 	public authors?: Array<Author>;
-	public collections?: Array<string>;
+	public collections?: Array<Collection>;
 
 	public constructor(resource?: Partial<Resource>) {
 		Object.assign(this, resource);

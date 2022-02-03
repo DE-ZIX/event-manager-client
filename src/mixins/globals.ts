@@ -8,6 +8,12 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		$showSuccess(message = 'Action Completed Successfully') {
+			this.$q.notify({
+				message: message,
+				color: 'positive',
+			});
+		},
 		$showError(error = '', message = 'Something went wrong') {
 			if (error) console.log(error);
 			this.$q.notify({

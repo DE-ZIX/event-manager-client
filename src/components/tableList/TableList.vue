@@ -71,6 +71,9 @@ export default defineComponent({
 		isEvent() {
 			return this.typeName === 'Event';
 		},
+		isAuthor() {
+			return this.typeName === 'Author';
+		},
 		itemsComp() {
 			return this.items ? this.items.items : [];
 		},
@@ -83,6 +86,9 @@ export default defineComponent({
 			}
 			if (this.isEvent) {
 				return columnsConfig().eventColumns;
+			}
+			if (this.isAuthor) {
+				return columnsConfig().authorColumns;
 			}
 			return [];
 		},

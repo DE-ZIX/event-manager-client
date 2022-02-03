@@ -6,15 +6,24 @@ export default class ClassService {
 
 	public async getMultiple(
 		pagination?: Pagination,
+		extraParams?: { [key: string]: unknown },
 	): Promise<ConsultList<Class>> {
 		const config = {
 			params: {
 				pagination,
 			},
 		};
+		config.params = { ...config.params, ...extraParams };
 		const response = await EventManagerAPIService.get<ConsultList<Class>>(
 			this.baseEndpoint,
 			config,
+		);
+		return response.data;
+	}
+
+	public async addResource(id: number, resourceId: number): Promise<Class> {
+		const response = await EventManagerAPIService.get<Class>(
+			`${this.baseEndpoint}/${id}/${resourceId}`,
 		);
 		return response.data;
 	}

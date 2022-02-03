@@ -28,6 +28,7 @@ import { Class, Resource, Event } from '@/models';
 import { defineComponent, PropType, ref } from 'vue';
 import ConfirmDeleteModal from '@/components/tableList/ConfirmDeleteModal.vue';
 import EntityEditBtn from '@/components/EntityEditBtn.vue';
+import EntityOpenBtn from '@/components/EntityOpenBtn.vue';
 
 export default defineComponent({
 	props: {
@@ -41,6 +42,7 @@ export default defineComponent({
 	components: {
 		ConfirmDeleteModal,
 		EntityEditBtn,
+		EntityOpenBtn,
 	},
 	computed: {
 		typeNamePlural() {

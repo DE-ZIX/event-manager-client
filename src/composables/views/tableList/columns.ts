@@ -2,6 +2,7 @@ import {
 	resourceColumnsConfig,
 	eventColumnsConfig,
 	classColumnsConfig,
+	authorColumnsConfig,
 } from '@/composables/views/tableList/columns/index';
 
 export default function () {
@@ -38,11 +39,18 @@ export default function () {
 		...commonPostColumns,
 	];
 
+	const authorColumns = [
+		...commonPreColumns,
+		...authorColumnsConfig,
+		...commonPostColumns,
+	];
+
 	return {
 		commonPreColumns,
 		commonPostColumns,
 		resourceColumns,
 		classColumns,
+		authorColumns,
 		eventColumns,
 	};
 }

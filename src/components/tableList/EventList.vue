@@ -1,14 +1,31 @@
 <template>
-	<entity-list :service="service" :type="classType" :typeName="typeName" />
+	<entity-list
+		ref="list"
+		:service="service"
+		:type="classType"
+		:typeName="typeName"
+		:extraParams="extraParams"
+		:addNewLink="addNewLink"
+	/>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { EventService } from '@services/eventManagerAPI';
 import EntityList from '@/components/tableList/EntityList.vue';
 import { Event } from '@/models';
 
 export default defineComponent({
+	props: {
+		extraParams: {
+			type: Object,
+			required: false,
+		},
+		addNewLink: {
+			type: [String, Object] as PropType<string | unknown>,
+			required: false,
+		},
+	},
 	components: {
 		EntityList,
 	},
@@ -24,6 +41,11 @@ export default defineComponent({
 	computed: {
 		typeName(): string {
 			return this.classType.constructor.name;
+		},
+	},
+	methods: {
+		fetch() {
+			(this.$refs.list as typeof EntityList).typedFetch();
 		},
 	},
 });

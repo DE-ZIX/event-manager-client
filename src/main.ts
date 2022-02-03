@@ -20,5 +20,6 @@ createApp(App)
 declare module '@vue/runtime-core' {
 	interface ComponentCustomProperties {
 		$showError: (error?: string, message?: string) => void;
+		$showSuccess: (message?: string) => void;
 	}
 }

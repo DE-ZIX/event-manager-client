@@ -2,7 +2,7 @@
 	<div>
 		<div class="row justify-between items-end">
 			<h5 class="q-mb-md">{{ typeCapitalized }} List</h5>
-			<router-link :to="{ name: `add${typeCapitalized}` }">
+			<router-link :to="addNewLinkComp">
 				<q-btn
 					round
 					color="primary"
@@ -38,6 +38,7 @@ import {
 	EventService,
 	ClassService,
 	ResourceService,
+	AuthorService,
 } from '@services/eventManagerAPI';
 import {
 	ConsultList,
@@ -47,24 +48,38 @@ import {
 	Resource,
 	Class,
 	Event,
+	Author,
 } from '@/models';
 
 export default defineComponent({
 	name: 'EntityList',
 	props: {
 		type: {
-			type: Object as PropType<Class | Resource | Event>,
+			type: Object as PropType<Class | Resource | Event | Author>,
 			required: true,
 		},
 		service: {
-			type: [EventService, ClassService, ResourceService] as PropType<
-				EventService | ClassService | ResourceService
+			type: [
+				EventService,
+				ClassService,
+				ResourceService,
+				AuthorService,
+			] as PropType<
+				EventService | ClassService | ResourceService | AuthorService
 			>,
 			required: true,
 		},
 		typeName: {
 			type: String,
 			required: true,
+		},
+		extraParams: {
+			type: Object,
+			required: false,
+		},
+		addNewLink: {
+			type: [String, Object] as PropType<string | unknown>,
+			required: false,
 		},
 	},
 	components: {
@@ -93,13 +108,24 @@ export default defineComponent({
 		typeCapitalized(): string {
 			return this.typeName.charAt(0).toUpperCase() + this.typeName.slice(1);
 		},
+		addNewLinkComp(): string | unknown {
+			if (this.addNewLink) {
+				return this.addNewLink;
+			}
+			return { name: `add${this.typeCapitalized}` };
+		},
 	},
 	methods: {
-		fetch<T extends Class | Resource | Event>() {
+		fetch<T extends Class | Resource | Event | Author>() {
 			const pag = new PageInformation(this.pageInformation);
 			const pagination = new Pagination(new PageInformation(pag));
 			this.loading = true;
-			(this.service.getMultiple(pagination) as Promise<ConsultList<T>>)
+			const extraParams = this.extraParams || {};
+			(
+				this.service.getMultiple(pagination, extraParams) as Promise<
+					ConsultList<T>
+				>
+			)
 				.then((data: ConsultList<T>) => {
 					Object.assign(this.consultList, data);
 					this.updatePagination(data.metadata);

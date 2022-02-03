@@ -70,6 +70,38 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'detailsResource',
 		path: '/resources/:id',
 		component: () => import('@/views/resources/details.vue'),
+		children: [
+			{
+				name: 'addResourceToEvent',
+				path: 'add-to-event',
+				component: () => import('@/views/resources/AddResourceToEvent.vue'),
+			},
+			{
+				name: 'addResourceToClass',
+				path: 'add-to-class',
+				component: () => import('@/views/resources/AddResourceToClass.vue'),
+			},
+		],
+	},
+	{
+		path: '/authors',
+		name: 'authorsIndex',
+		component: () => import('@/views/authors/index.vue'),
+	},
+	{
+		name: 'addAuthor',
+		path: '/authors/add',
+		component: () => import('@/views/authors/add.vue'),
+	},
+	{
+		name: 'editAuthor',
+		path: '/authors/:id/edit',
+		component: () => import('@/views/authors/edit.vue'),
+	},
+	{
+		name: 'detailsAuthor',
+		path: '/authors/:id',
+		component: () => import('@/views/authors/details.vue'),
 	},
 ];
 

@@ -11,8 +11,9 @@
 					color="primary"
 					@click="confirmDelete"
 					label="Yes"
+					no-caps
 				/>
-				<q-btn flat v-close-popup color="primary" label="Cancel" />
+				<q-btn flat v-close-popup color="negative" label="Cancel" no-caps />
 			</q-card-actions>
 		</q-card>
 	</q-dialog>

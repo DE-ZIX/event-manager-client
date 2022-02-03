@@ -1,31 +1,20 @@
 <template>
-	<entity-list
-		:service="service"
-		:type="classType"
-		:typeName="typeName"
-		:extraParams="extraParams"
-	/>
+	<entity-list :service="service" :type="classType" :typeName="typeName" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { AuthorService } from '@services/eventManagerAPI';
 import EntityList from '@/components/tableList/EntityList.vue';
-import { ResourceService } from '@services/eventManagerAPI';
-import { Resource } from '@/models';
+import { Author } from '@/models';
 
 export default defineComponent({
-	props: {
-		extraParams: {
-			type: Object,
-			required: false,
-		},
-	},
 	components: {
 		EntityList,
 	},
 	setup() {
-		const service = new ResourceService();
-		const classType = new Resource();
+		const service = new AuthorService();
+		const classType = new Author();
 
 		return {
 			service,
