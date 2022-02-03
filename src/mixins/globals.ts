@@ -12,6 +12,7 @@ export default defineComponent({
 			if (error) console.log(error);
 			this.$q.notify({
 				message: message,
+				color: 'negative',
 			});
 		},
 	},
