@@ -7,6 +7,7 @@
 			:loading="loading"
 			color="primary"
 			@request="handleRequest"
+			@row-click="handleClick"
 		>
 			<template v-slot:body-cell-keywords="data" v-if="isResource">
 				<q-td :props="data">
@@ -33,7 +34,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { ConsultList } from '@/models';
+import { ConsultList, Resource } from '@/models';
 import EntityListActions from '@/components/tableList/EntityListActions.vue';
 import { columns as columnsConfig } from '@/composables/views/tableList/index';
 
@@ -101,6 +102,19 @@ export default defineComponent({
 		},
 		handleDelete(id: number) {
 			this.$emit('delete', id);
+		},
+		handleClick(evt: PointerEvent, row: Resource, index: number) {
+			const fromAction = evt.composedPath().some((el) => {
+				if (el instanceof Element) {
+					return el.classList.contains('q-btn');
+				}
+			});
+			if (!fromAction) {
+				this.$router.push({
+					name: `details${this.typeName}`,
+					params: { id: row.id },
+				});
+			}
 		},
 	},
 });
