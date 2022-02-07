@@ -38,6 +38,10 @@
 					{{ author.name }} {{ author.surname }}
 				</div>
 			</div>
+			<div v-if="modelValue.image">
+				<div>Image:</div>
+				<img v-if="imageURL" :src="imageURL" />
+			</div>
 			<div class="q-gutter-x-sm">
 				Keywords:
 				<q-badge v-for="keyword in modelValue.keywords" :key="keyword">
@@ -115,6 +119,14 @@ export default defineComponent({
 				(this.$refs.classList as typeof ClassList).fetch();
 				(this.$refs.eventList as typeof EventList).fetch();
 			}
+		},
+	},
+	computed: {
+		imageURL(): string | undefined {
+			if (this.modelValue.image && this.modelValue.image instanceof File) {
+				return URL.createObjectURL(this.modelValue.image);
+			}
+			return '';
 		},
 	},
 	created() {

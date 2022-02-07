@@ -25,23 +25,38 @@ export default class ResourceService {
 		const response = await EventManagerAPIService.get<Resource>(
 			`${this.baseEndpoint}/${id}`,
 		);
-		return response.data;
+		const resourceReturn = new Resource(response.data);
+		return resourceReturn.setAndConvertImageToFile().then(() => {
+			return resourceReturn;
+		});
 	}
 
 	public async post(resource: Resource): Promise<Resource> {
-		const response = await EventManagerAPIService.post<Resource>(
-			this.baseEndpoint,
-			resource,
-		);
-		return response.data;
+		const convertedResource = new Resource({ ...resource });
+		return convertedResource.setAndConvertImageToBase64().then(async () => {
+			const response = await EventManagerAPIService.post<Resource>(
+				this.baseEndpoint,
+				convertedResource,
+			);
+			const resourceReturn = new Resource(response.data);
+			return resourceReturn.setAndConvertImageToFile().then(async () => {
+				return resourceReturn;
+			});
+		});
 	}
 
 	public async put(resource: Resource): Promise<Resource> {
-		const response = await EventManagerAPIService.put<Resource>(
-			this.baseEndpoint,
-			resource,
-		);
-		return response.data;
+		const convertedResource = new Resource({ ...resource });
+		return convertedResource.setAndConvertImageToBase64().then(async () => {
+			const response = await EventManagerAPIService.put<Resource>(
+				this.baseEndpoint,
+				convertedResource,
+			);
+			const resourceReturn = new Resource(response.data);
+			return resourceReturn.setAndConvertImageToFile().then(async () => {
+				return resourceReturn;
+			});
+		});
 	}
 
 	public async delete(id: number): Promise<string> {
