@@ -50,6 +50,7 @@
 			</div>
 			<div>
 				<class-list
+					v-if="modelValue.id"
 					ref="classList"
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToClass' }"
@@ -57,6 +58,7 @@
 			</div>
 			<div>
 				<event-list
+					v-if="modelValue.id"
 					ref="eventList"
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToEvent' }"
