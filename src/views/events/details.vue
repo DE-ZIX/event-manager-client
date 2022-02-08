@@ -84,7 +84,7 @@ export default defineComponent({
 				});
 		},
 		refetchList() {
-			(this.$refs.eventList as typeof ResourceList).fetch();
+			(this.$refs.resourceList as typeof ResourceList).fetch();
 		},
 	},
 	computed: {

@@ -1,5 +1,6 @@
 <template>
 	<entity-list
+		ref="list"
 		:service="service"
 		:type="classType"
 		:typeName="typeName"
@@ -42,6 +43,11 @@ export default defineComponent({
 	computed: {
 		typeName(): string {
 			return this.classType.constructor.name;
+		},
+	},
+	methods: {
+		fetch() {
+			(this.$refs.list as typeof EntityList).typedFetch();
 		},
 	},
 });
