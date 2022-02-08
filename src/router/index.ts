@@ -30,6 +30,13 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'detailsClass',
 		path: '/classes/:id',
 		component: () => import('@/views/classes/details.vue'),
+		children: [
+			{
+				name: 'detailsClassAddResource',
+				path: 'add-resource',
+				component: () => import('@/components/AddResource.vue'),
+			},
+		],
 	},
 	{
 		path: '/events',
@@ -50,6 +57,13 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'detailsEvent',
 		path: '/events/:id',
 		component: () => import('@/views/events/details.vue'),
+		children: [
+			{
+				name: 'detailsEventAddResource',
+				path: 'add-resource',
+				component: () => import('@/components/AddResource.vue'),
+			},
+		],
 	},
 	{
 		path: '/resources',

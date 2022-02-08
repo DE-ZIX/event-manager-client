@@ -96,7 +96,7 @@ export default defineComponent({
 		fetchOptions() {
 			this.loadingOptions = true;
 			this.service
-				.getMultiple()
+				.getMultiple(undefined, { notInResource: this.modelValue.id })
 				.then((data) => {
 					this.options = data.items || [];
 				})

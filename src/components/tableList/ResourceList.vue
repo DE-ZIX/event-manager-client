@@ -4,6 +4,8 @@
 		:type="classType"
 		:typeName="typeName"
 		:extraParams="extraParams"
+		:getResources="getResources"
+		:modelValue="modelValue"
 	/>
 </template>
 
@@ -16,6 +18,11 @@ import { Resource } from '@/models';
 export default defineComponent({
 	props: {
 		extraParams: {
+			type: Object,
+			required: false,
+		},
+		getResources: Boolean,
+		modelValue: {
 			type: Object,
 			required: false,
 		},

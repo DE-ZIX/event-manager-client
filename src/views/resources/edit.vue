@@ -36,7 +36,7 @@ export default defineComponent({
 					this.modelValue = new Resource(data);
 				})
 				.catch((error) => {
-					this.$showError(error, 'Error saving Resource');
+					this.$showError(error, 'Error updating Resource');
 				})
 				.finally(() => {
 					this.loading = false;

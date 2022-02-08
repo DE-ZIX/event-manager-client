@@ -1,31 +1,67 @@
 <template>
 	<div>
-		<div class="row">
-			<h5>{{ modelValue.getName() }}</h5>
-			<entity-edit-btn :modelValue="modelValue" typeName="Resource" />
+		<h5>Class</h5>
+		<div class="row items-center q-gutter-x-md">
+			<h6>{{ modelValue.getName() }}</h6>
+			<entity-edit-btn
+				:modelValue="modelValue"
+				v-if="modelValue.id"
+				typeName="Class"
+			/>
+		</div>
+		<div class="q-gutter-y-lg">
+			<div>ID: {{ modelValue.id }}</div>
+			<div>
+				<div>Description:</div>
+				<div>{{ modelValue.description }}</div>
+			</div>
+			<div>Last Updated: {{ modelValue.updatedDate }}</div>
+			<div v-if="modelValue.image">
+				<div>Image:</div>
+				<img v-if="imageURL" :src="imageURL" />
+			</div>
+			<div>
+				<resource-list
+					v-if="modelValue.id"
+					ref="resourceList"
+					:modelValue="modelValue"
+					:addNewLink="{ name: 'detailsClassAddResource' }"
+					getResources
+				/>
+			</div>
+			<router-view
+				:modelValue="modelValue"
+				@add="refetchList"
+				:service="service"
+				:type="classType"
+			/>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { ResourceService } from '@services/eventManagerAPI';
-import { Resource } from '@/models';
+import { defineComponent, ref } from 'vue';
+import { ClassService } from '@services/eventManagerAPI';
+import { Class } from '@/models';
 import EntityEditBtn from '@/components/EntityEditBtn.vue';
+import ResourceList from '@/components/tableList/ResourceList.vue';
 
 export default defineComponent({
 	components: {
 		EntityEditBtn,
+		ResourceList,
 	},
 	setup() {
-		const service = new ResourceService();
-		const modelValue = new Resource();
+		const service = new ClassService();
+		const modelValue = ref(new Class());
 		const loading = false;
+		const classType = new Class();
 
 		return {
 			service,
 			modelValue,
 			loading,
+			classType,
 		};
 	},
 	methods: {
@@ -35,14 +71,25 @@ export default defineComponent({
 			this.service
 				.get(id)
 				.then((data) => {
-					this.modelValue = data;
+					this.modelValue = new Class(data);
 				})
 				.catch((error) => {
-					this.$showError(error, 'Error fetching Resource');
+					this.$showError(error, 'Error fetching Class');
 				})
 				.finally(() => {
 					this.loading = false;
 				});
+		},
+		refetchList() {
+			(this.$refs.eventList as typeof ResourceList).fetch();
+		},
+	},
+	computed: {
+		imageURL(): string | undefined {
+			if (this.modelValue.image && this.modelValue.image instanceof File) {
+				return URL.createObjectURL(this.modelValue.image);
+			}
+			return '';
 		},
 	},
 	created() {

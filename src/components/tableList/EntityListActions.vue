@@ -13,6 +13,18 @@
 				<span>Delete {{ typeCapitalized }}</span>
 			</q-tooltip>
 		</q-btn>
+		<q-btn
+			icon="close"
+			flat
+			round
+			color="negative"
+			@click="unlink"
+			v-if="getResources"
+		>
+			<q-tooltip>
+				<span>Unlink {{ typeCapitalized }}</span>
+			</q-tooltip>
+		</q-btn>
 		<confirm-delete-modal
 			v-model="confirmDelete"
 			@confirmDelete="this.delete()"
@@ -38,6 +50,7 @@ export default defineComponent({
 		},
 		typeName: String,
 		typeCapitalized: String,
+		getResources: Boolean,
 	},
 	components: {
 		ConfirmDeleteModal,
@@ -61,6 +74,9 @@ export default defineComponent({
 	methods: {
 		delete() {
 			this.$emit('delete', this.modelValue.id);
+		},
+		unlink() {
+			this.$emit('unlink', this.modelValue.id);
 		},
 	},
 });

@@ -1,4 +1,10 @@
+@import './quasar.variables.scss';
+
 a {
 	color: unset;
 	text-decoration-line: none;
+}
+
+body.body--light {
+	background-color: $page;
 }

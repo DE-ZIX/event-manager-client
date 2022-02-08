@@ -54,6 +54,8 @@
 					ref="classList"
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToClass' }"
+					:modelValue="modelValue"
+					getResources
 				/>
 			</div>
 			<div>
@@ -62,6 +64,8 @@
 					ref="eventList"
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToEvent' }"
+					:modelValue="modelValue"
+					getResources
 				/>
 			</div>
 			<router-view :modelValue="modelValue" @add="refetchList" />

@@ -25,4 +25,5 @@ module.exports = {
 			extensions: ['.ts', '.js', '.vue', '.json', '.d.ts'],
 		},
 	},
+	devServer: { port: 8080 },
 };

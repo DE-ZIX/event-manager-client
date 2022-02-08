@@ -25,8 +25,10 @@
 			:loading="loading"
 			v-model:pageInformation="pageInformation"
 			:typeCapitalized="typeCapitalized"
+			:getResources="getResources"
 			@request="request"
 			@delete="(id) => this.delete(id)"
+			@unlink="(id) => this.unlink(id)"
 		/>
 	</div>
 </template>
@@ -55,7 +57,7 @@ export default defineComponent({
 	name: 'EntityList',
 	props: {
 		type: {
-			type: Object as PropType<Class | Resource | Event | Author>,
+			type: Object as PropType<Class | Resource | Event>,
 			required: true,
 		},
 		service: {
@@ -64,9 +66,7 @@ export default defineComponent({
 				ClassService,
 				ResourceService,
 				AuthorService,
-			] as PropType<
-				EventService | ClassService | ResourceService | AuthorService
-			>,
+			] as PropType<EventService | ClassService | ResourceService>,
 			required: true,
 		},
 		typeName: {
@@ -79,6 +79,11 @@ export default defineComponent({
 		},
 		addNewLink: {
 			type: [String, Object] as PropType<string | unknown>,
+			required: false,
+		},
+		getResources: Boolean,
+		modelValue: {
+			type: Object,
 			required: false,
 		},
 	},
@@ -114,6 +119,16 @@ export default defineComponent({
 			}
 			return { name: `add${this.typeCapitalized}` };
 		},
+		modelTypeNamePlural(): string {
+			const name = (this.modelValue?.constructor.name + '').toLowerCase();
+			if (name === 'event') {
+				return 'events';
+			}
+			if (name === 'class') {
+				return 'classes';
+			}
+			return name + 's';
+		},
 	},
 	methods: {
 		fetch<T extends Class | Resource | Event | Author>() {
@@ -121,21 +136,43 @@ export default defineComponent({
 			const pagination = new Pagination(new PageInformation(pag));
 			this.loading = true;
 			const extraParams = this.extraParams || {};
-			(
-				this.service.getMultiple(pagination, extraParams) as Promise<
-					ConsultList<T>
-				>
-			)
-				.then((data: ConsultList<T>) => {
-					Object.assign(this.consultList, data);
-					this.updatePagination(data.metadata);
-				})
-				.catch((error) => {
-					this.$showError(error, `Error fetching  ${this.typeCapitalized}`);
-				})
-				.finally(() => {
-					this.loading = false;
-				});
+			if (this.typeName !== 'Resource' || !this.getResources) {
+				(
+					this.service.getMultiple(pagination, extraParams) as Promise<
+						ConsultList<T>
+					>
+				)
+					.then((data: ConsultList<T>) => {
+						Object.assign(this.consultList, data);
+						this.updatePagination(data.metadata);
+					})
+					.catch((error) => {
+						this.$showError(error, `Error fetching  ${this.typeCapitalized}`);
+					})
+					.finally(() => {
+						this.loading = false;
+					});
+			} else {
+				let service: EventService | ClassService;
+				if (this.modelValue instanceof Event) service = new EventService();
+				if (this.modelValue instanceof Class) service = new ClassService();
+				else service = new EventService();
+				(
+					service.getResources(this.modelValue?.id, pagination) as Promise<
+						ConsultList<T>
+					>
+				)
+					.then((data: ConsultList<T>) => {
+						Object.assign(this.consultList, data);
+						this.updatePagination(data.metadata);
+					})
+					.catch((error) => {
+						this.$showError(error, `Error fetching  ${this.typeCapitalized}`);
+					})
+					.finally(() => {
+						this.loading = false;
+					});
+			}
 		},
 		updatePagination(metadata?: ConsultListMetadata) {
 			this.pageInformation.rowsNumber = metadata ? metadata.total : 0;
@@ -171,6 +208,51 @@ export default defineComponent({
 				.finally(() => {
 					this.loading = false;
 				});
+		},
+		unlink(id: number) {
+			this.loading = true;
+			if (this.type instanceof Resource) {
+				(
+					(this.service as ResourceService).unlink(
+						this.modelValue?.id,
+						id,
+						this.modelTypeNamePlural,
+					) as Promise<string>
+				)
+					.then(() => {
+						this.typedFetch();
+						this.$q.notify({
+							message: `${this.typeCapitalized} unlinked`,
+							color: 'positive',
+						});
+					})
+					.catch((error) => {
+						this.$showError(error, `Error unlinking ${this.typeCapitalized}`);
+					})
+					.finally(() => {
+						this.loading = false;
+					});
+			} else {
+				(
+					(this.service as EventService | ClassService).unlink(
+						id,
+						this.modelValue?.id,
+					) as Promise<string>
+				)
+					.then(() => {
+						this.typedFetch();
+						this.$q.notify({
+							message: `${this.typeCapitalized} unlinked`,
+							color: 'positive',
+						});
+					})
+					.catch((error) => {
+						this.$showError(error, `Error unlinking ${this.typeCapitalized}`);
+					})
+					.finally(() => {
+						this.loading = false;
+					});
+			}
 		},
 	},
 	created() {

@@ -5,7 +5,6 @@
 		<resource-list />
 		<event-list />
 		<class-list />
-		<author-list />
 	</div>
 </template>
 
@@ -14,7 +13,6 @@ import { defineComponent } from 'vue';
 import ResourceList from '@/components/tableList/ResourceList.vue';
 import EventList from '@/components/tableList/EventList.vue';
 import ClassList from '@/components/tableList/ClassList.vue';
-import AuthorList from '@/components/tableList/AuthorList.vue';
 
 export default defineComponent({
 	name: 'Home',
@@ -22,7 +20,6 @@ export default defineComponent({
 		ResourceList,
 		EventList,
 		ClassList,
-		AuthorList,
 	},
 });
 </script>

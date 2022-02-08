@@ -3,7 +3,7 @@
 		<q-card style="width: 500px">
 			<q-card-section>
 				<div class="row items-center justify-between">
-					<h5>Choose Class</h5>
+					<h5>Choose Resource</h5>
 					<q-btn
 						flat
 						icon="close"
@@ -38,7 +38,7 @@
 					flat
 					v-close-popup
 					color="primary"
-					@click="add"
+					@click="addResource"
 					:disable="!value || !value.id"
 					label="Add"
 					no-caps
@@ -50,27 +50,41 @@
 </template>
 
 <script lang="ts">
-import { Resource, Class } from '@/models';
-import { ClassService } from '@/services/eventManagerAPI';
-import { defineComponent, ref } from 'vue';
+import { Resource, Class, Event } from '@/models';
+import {
+	ClassService,
+	EventService,
+	ResourceService,
+} from '@/services/eventManagerAPI';
+import { defineComponent, ref, PropType } from 'vue';
 
 export default defineComponent({
 	props: {
 		modelValue: {
-			type: Resource,
+			type: Object as PropType<Resource | Class | Event>,
+			required: true,
+		},
+		service: {
+			type: [EventService, ClassService] as PropType<
+				EventService | ClassService
+			>,
+			required: true,
+		},
+		type: {
+			type: Object as PropType<Class | Event>,
 			required: true,
 		},
 	},
 	setup() {
 		const show = ref(true);
-		const service = new ClassService();
-		const options = ref(new Array<Class>());
+		const resourceService = new ResourceService();
+		const options = ref(new Array<Resource>());
 		const loadingOptions = ref(false);
 		const loading = ref(false);
-		const value = ref<Class | null>(null);
+		const value = ref<Resource | null>(null);
 		return {
 			show,
-			service,
+			resourceService,
 			options,
 			loadingOptions,
 			value,
@@ -86,7 +100,7 @@ export default defineComponent({
 				this.show = value;
 				if (!value)
 					this.$router.push({
-						name: 'detailsResource',
+						name: `details${this.type.constructor.name}`,
 						params: { id: this.modelValue.id },
 					});
 			},
@@ -95,32 +109,41 @@ export default defineComponent({
 	methods: {
 		fetchOptions() {
 			this.loadingOptions = true;
-			this.service
-				.getMultiple(undefined, { notInResource: this.modelValue.id })
+			this.resourceService
+				.getMultiple(undefined, { notInCollection: this.modelValue.id })
 				.then((data) => {
 					this.options = data.items || [];
 				})
 				.catch((error) => {
-					this.$showError(error, 'Error fetching Resource');
+					this.$showError(error, 'Error fetching Resources');
 				})
 				.finally(() => {
 					this.loadingOptions = false;
 				});
 		},
-		add() {
+		add<T extends Class | Event>() {
 			this.loading = true;
-			this.service
-				.addResource(this.value?.id || 0, this.modelValue.id || 0)
+			(
+				this.service.addResource(
+					this.modelValue.id || 0,
+					this.value?.id || 0,
+				) as Promise<T>
+			)
 				.then(() => {
-					this.$emit('add', 'class');
-					this.$showSuccess('Resource added to Class Succesffully');
+					this.$emit('add');
+					this.$showSuccess('Resource added Succesffully');
 				})
 				.catch((error: string) => {
-					this.$showError(error, 'Error adding Resource to Class');
+					this.$showError(error, 'Error adding Resource');
 				})
 				.finally(() => {
 					this.loading = false;
 				});
+		},
+		addResource() {
+			const { type } = this;
+			type T = typeof type;
+			this.add<T>();
 		},
 	},
 	created() {

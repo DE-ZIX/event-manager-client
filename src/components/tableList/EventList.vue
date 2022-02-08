@@ -6,6 +6,8 @@
 		:typeName="typeName"
 		:extraParams="extraParams"
 		:addNewLink="addNewLink"
+		:getResources="getResources"
+		:modelValue="modelValue"
 	/>
 </template>
 
@@ -23,6 +25,11 @@ export default defineComponent({
 		},
 		addNewLink: {
 			type: [String, Object] as PropType<string | unknown>,
+			required: false,
+		},
+		getResources: Boolean,
+		modelValue: {
+			type: Object,
 			required: false,
 		},
 	},

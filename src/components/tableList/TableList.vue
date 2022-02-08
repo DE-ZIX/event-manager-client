@@ -23,7 +23,9 @@
 					<entity-list-actions
 						:modelValue="data.row"
 						:typeName="typeName"
+						:getResources="getResources"
 						@delete="handleDelete"
+						@unlink="handleUnlink(data.row.id)"
 						:typeCapitalized="typeCapitalized"
 					/>
 				</q-td>
@@ -49,11 +51,12 @@ export default defineComponent({
 		typeCapitalized: String,
 		loading: Boolean,
 		pageInformation: Object as PropType<unknown>,
+		getResources: Boolean,
 	},
 	components: {
 		EntityListActions,
 	},
-	emits: ['update:pageInformation', 'request', 'delete'],
+	emits: ['update:pageInformation', 'request', 'delete', 'unlink'],
 	computed: {
 		pageInformationComp: {
 			get() {
@@ -103,7 +106,7 @@ export default defineComponent({
 		handleDelete(id: number) {
 			this.$emit('delete', id);
 		},
-		handleClick(evt: PointerEvent, row: Resource, index: number) {
+		handleClick(evt: PointerEvent, row: Resource) {
 			const fromAction = evt.composedPath().some((el) => {
 				if (el instanceof Element) {
 					return el.classList.contains('q-btn');
@@ -115,6 +118,9 @@ export default defineComponent({
 					params: { id: row.id },
 				});
 			}
+		},
+		handleUnlink(id: number) {
+			this.$emit('unlink', id);
 		},
 	},
 });

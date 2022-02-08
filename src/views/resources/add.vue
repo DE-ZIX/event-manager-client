@@ -30,7 +30,7 @@ export default defineComponent({
 			this.service
 				.post(this.modelValue as Resource)
 				.then((data) => {
-					this.$showSuccess('Resource updated');
+					this.$showSuccess('Resource saved');
 					this.modelValue = new Resource(data);
 				})
 				.catch((error) => {

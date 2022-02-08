@@ -11,12 +11,18 @@
 					icon="menu"
 				/>
 
-				<q-toolbar-title> Quasar App </q-toolbar-title>
+				<q-img
+					src="@/assets/cube-logo.svg"
+					alt="Event Manager Logo"
+					style="height: 35px; max-width: 35px"
+				/>
+
+				<q-toolbar-title> Event Manager </q-toolbar-title>
 
 				<div>
 					<q-toggle
 						v-model="dark"
-						color="secondary"
+						color="cyan-3"
 						label="Dark Theme"
 						@click="setDark(dark)"
 					/>

@@ -1,4 +1,4 @@
-import { ConsultList, Event, Pagination } from '@/models';
+import { ConsultList, Event, Pagination, Resource } from '@/models';
 import { EventManagerAPIService } from '.';
 
 export default class EventService {
@@ -21,9 +21,32 @@ export default class EventService {
 		return response.data;
 	}
 
+	public async getResources(
+		id: number,
+		pagination?: Pagination,
+	): Promise<ConsultList<Resource>> {
+		const config = {
+			params: {
+				pagination,
+			},
+		};
+		const response = await EventManagerAPIService.get<ConsultList<Resource>>(
+			`${this.baseEndpoint}/${id}/resources`,
+			config,
+		);
+		return response.data;
+	}
+
 	public async addResource(id: number, resourceId: number): Promise<Event> {
 		const response = await EventManagerAPIService.get<Event>(
 			`${this.baseEndpoint}/${id}/${resourceId}`,
+		);
+		return response.data;
+	}
+
+	public async unlink(id: number, resourceId: number): Promise<string> {
+		const response = await EventManagerAPIService.delete<string>(
+			`${this.baseEndpoint}/${id}/${resourceId}/remove`,
 		);
 		return response.data;
 	}
@@ -32,23 +55,38 @@ export default class EventService {
 		const response = await EventManagerAPIService.get<Event>(
 			`${this.baseEndpoint}/${id}`,
 		);
-		return response.data;
+		const data = new Event(response.data);
+		return data.setAndConvertImageToFile().then(() => {
+			return data;
+		});
 	}
 
 	public async post(event: Event): Promise<Event> {
-		const response = await EventManagerAPIService.post<Event>(
-			this.baseEndpoint,
-			event,
-		);
-		return response.data;
+		const converted = new Event({ ...event });
+		return converted.setAndConvertImageToBase64().then(async () => {
+			const response = await EventManagerAPIService.post<Event>(
+				this.baseEndpoint,
+				converted,
+			);
+			const data = new Event(response.data);
+			return data.setAndConvertImageToFile().then(async () => {
+				return data;
+			});
+		});
 	}
 
 	public async put(event: Event): Promise<Event> {
-		const response = await EventManagerAPIService.put<Event>(
-			this.baseEndpoint,
-			event,
-		);
-		return response.data;
+		const converted = new Event({ ...event });
+		return converted.setAndConvertImageToBase64().then(async () => {
+			const response = await EventManagerAPIService.put<Event>(
+				this.baseEndpoint,
+				converted,
+			);
+			const data = new Event(response.data);
+			return data.setAndConvertImageToFile().then(async () => {
+				return data;
+			});
+		});
 	}
 
 	public async delete(id: number): Promise<string> {
