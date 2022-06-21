@@ -1,1 +1,1 @@
-export { default as columns } from './columns';
+export * as columns from './columns';

@@ -45,7 +45,7 @@ export default class Collection {
 	}
 
 	public async convertBase64ToFile(): Promise<void> {
-		const { base64ToFile } = file();
+		const { base64ToFile } = file;
 		if (this.image && typeof this.image === 'string') {
 			const { image } = this;
 			await base64ToFile(
@@ -59,7 +59,7 @@ export default class Collection {
 	}
 
 	public async convertImageToFile(): Promise<void> {
-		const { byteArrayToBase64, base64ToFile } = file();
+		const { byteArrayToBase64, base64ToFile } = file;
 		if (this.image && this.image instanceof ArrayBuffer) {
 			const { image } = this;
 			const base64 = byteArrayToBase64(image);
