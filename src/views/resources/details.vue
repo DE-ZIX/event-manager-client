@@ -55,6 +55,7 @@
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToClass' }"
 					:modelValue="modelValue"
+					extraTitle="(Classes that belong to this resource)"
 					getResources
 				/>
 			</div>
@@ -65,6 +66,7 @@
 					:extraParams="{ resource: modelValue.id }"
 					:addNewLink="{ name: 'addResourceToEvent' }"
 					:modelValue="modelValue"
+					extraTitle="(Events that belong to this resource)"
 					getResources
 				/>
 			</div>

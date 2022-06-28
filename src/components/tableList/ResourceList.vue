@@ -7,6 +7,7 @@
 		:extraParams="extraParams"
 		:getResources="getResources"
 		:modelValue="modelValue"
+		:extraTitle="extraTitle"
 	/>
 </template>
 
@@ -26,6 +27,11 @@ export default defineComponent({
 		modelValue: {
 			type: Object,
 			required: false,
+		},
+		extraTitle: {
+			type: String,
+			required: false,
+			default: '',
 		},
 	},
 	components: {

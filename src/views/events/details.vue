@@ -30,6 +30,7 @@
 					:addNewLink="{ name: 'detailsEventAddResource' }"
 					getResources
 					:modelValue="modelValue"
+					extraTitle="(Resources in which this event belongs to)"
 				/>
 			</div>
 			<router-view

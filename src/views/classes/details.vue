@@ -27,6 +27,7 @@
 					:modelValue="modelValue"
 					:addNewLink="{ name: 'detailsClassAddResource' }"
 					getResources
+					extraTitle="(Resources in which this class belongs to)"
 				/>
 			</div>
 			<router-view
