@@ -83,16 +83,16 @@ export default defineComponent({
 		},
 		columns(): unknown[] {
 			if (this.isResource) {
-				return columnsConfig().resourceColumns;
+				return columnsConfig.resourceColumns;
 			}
 			if (this.isClass) {
-				return columnsConfig().classColumns;
+				return columnsConfig.classColumns;
 			}
 			if (this.isEvent) {
-				return columnsConfig().eventColumns;
+				return columnsConfig.eventColumns;
 			}
 			if (this.isAuthor) {
-				return columnsConfig().authorColumns;
+				return columnsConfig.authorColumns;
 			}
 			return [];
 		},

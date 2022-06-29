@@ -5,52 +5,43 @@ import {
 	authorColumnsConfig,
 } from '@/composables/views/tableList/columns/index';
 
-export default function () {
-	const commonPreColumns = [
-		{
-			name: 'id',
-			label: 'ID',
-			sortable: true,
-			field: 'id',
-		},
-	];
-	const commonPostColumns = [
-		{
-			name: 'actions',
-			label: 'Actions',
-		},
-	];
+const commonPreColumns = [
+	{
+		name: 'id',
+		label: 'ID',
+		sortable: true,
+		field: 'id',
+	},
+];
+const commonPostColumns = [
+	{
+		name: 'actions',
+		label: 'Actions',
+	},
+];
 
-	const resourceColumns = [
-		...commonPreColumns,
-		...resourceColumnsConfig,
-		...commonPostColumns,
-	];
+const resourceColumns = [
+	...commonPreColumns,
+	...resourceColumnsConfig,
+	...commonPostColumns,
+];
 
-	const classColumns = [
-		...commonPreColumns,
-		...classColumnsConfig,
-		...commonPostColumns,
-	];
+const classColumns = [
+	...commonPreColumns,
+	...classColumnsConfig,
+	...commonPostColumns,
+];
 
-	const eventColumns = [
-		...commonPreColumns,
-		...eventColumnsConfig,
-		...commonPostColumns,
-	];
+const eventColumns = [
+	...commonPreColumns,
+	...eventColumnsConfig,
+	...commonPostColumns,
+];
 
-	const authorColumns = [
-		...commonPreColumns,
-		...authorColumnsConfig,
-		...commonPostColumns,
-	];
+const authorColumns = [
+	...commonPreColumns,
+	...authorColumnsConfig,
+	...commonPostColumns,
+];
 
-	return {
-		commonPreColumns,
-		commonPostColumns,
-		resourceColumns,
-		classColumns,
-		authorColumns,
-		eventColumns,
-	};
-}
+export { resourceColumns, classColumns, eventColumns, authorColumns };

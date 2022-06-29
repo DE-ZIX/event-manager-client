@@ -1,7 +1,10 @@
 <template>
-	<div>
-		<div class="row justify-between items-end">
-			<h5 class="q-mb-md">{{ typeCapitalized }} List</h5>
+	<div class="q-mt-lg">
+		<div class="row justify-between items-center">
+			<div class="row items-center">
+				<h5 class="q-ma-none">{{ typeCapitalized }} List</h5>
+				<span class="q-ml-sm text-caption text-grey">{{ extraTitle }}</span>
+			</div>
 			<router-link :to="addNewLinkComp">
 				<q-btn
 					round
@@ -9,7 +12,6 @@
 					icon="add"
 					size="sm"
 					style="height: fit-content"
-					class="q-mb-md"
 				>
 					<q-tooltip>
 						<span>Add {{ typeCapitalized }}</span>
@@ -18,6 +20,7 @@
 			</router-link>
 		</div>
 		<table-list
+			class="q-mt-md"
 			:items="consultList"
 			ref="list"
 			:type="type"
@@ -85,6 +88,11 @@ export default defineComponent({
 		modelValue: {
 			type: Object,
 			required: false,
+		},
+		extraTitle: {
+			type: String,
+			required: false,
+			default: '',
 		},
 	},
 	components: {

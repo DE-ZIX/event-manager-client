@@ -1,4 +1,5 @@
 <template>
+	<h5>Add new Class</h5>
 	<class-form v-model="modelValue" />
 	<q-btn @click="save" class="q-mt-lg" label="Save" color="primary" no-caps />
 </template>

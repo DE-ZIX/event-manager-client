@@ -1,5 +1,6 @@
 <template>
 	<entity-list
+		id="event_list"
 		ref="list"
 		:service="service"
 		:type="classType"
@@ -8,6 +9,7 @@
 		:addNewLink="addNewLink"
 		:getResources="getResources"
 		:modelValue="modelValue"
+		:extraTitle="extraTitle"
 	/>
 </template>
 
@@ -27,10 +29,18 @@ export default defineComponent({
 			type: [String, Object] as PropType<string | unknown>,
 			required: false,
 		},
-		getResources: Boolean,
+		getResources: {
+			type: Boolean,
+			required: false,
+		},
 		modelValue: {
 			type: Object,
 			required: false,
+		},
+		extraTitle: {
+			type: String,
+			required: false,
+			default: '',
 		},
 	},
 	components: {

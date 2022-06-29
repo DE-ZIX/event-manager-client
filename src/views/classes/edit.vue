@@ -1,5 +1,6 @@
 <template>
 	<div v-if="modelValue.id">
+		<h5>Edit Class - {{ modelValue.title }}</h5>
 		<class-form v-model="modelValue" />
 		<q-btn @click="save" class="q-mt-lg" label="Save" color="primary" no-caps />
 	</div>

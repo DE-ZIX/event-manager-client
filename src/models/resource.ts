@@ -24,7 +24,7 @@ export default class Resource {
 	}
 
 	public async convertImageToByteArray(): Promise<void> {
-		const { fileToBase64, base64ToByteArray } = file();
+		const { fileToBase64, base64ToByteArray } = file;
 		if (this.image && this.image instanceof File) {
 			const { image } = this;
 			await fileToBase64(image).then((base64) => {
@@ -58,7 +58,7 @@ export default class Resource {
 	}
 
 	public async convertImageToFile(): Promise<void> {
-		const { byteArrayToBase64, base64ToFile } = file();
+		const { byteArrayToBase64, base64ToFile } = file;
 		if (this.image && this.image instanceof ArrayBuffer) {
 			const { image } = this;
 			const base64 = byteArrayToBase64(image);
@@ -73,7 +73,7 @@ export default class Resource {
 	}
 
 	public async convertBase64ToFile(): Promise<void> {
-		const { base64ToFile } = file();
+		const { base64ToFile } = file;
 		if (this.image && typeof this.image === 'string') {
 			const { image } = this;
 			await base64ToFile(
