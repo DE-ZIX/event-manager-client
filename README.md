@@ -1,4 +1,4 @@
-# conviso-client
+# Event Manager Client
 
 ## Requirements
 
