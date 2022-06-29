@@ -1,5 +1,6 @@
 <template>
 	<entity-list
+		id="resource_list"
 		ref="list"
 		:service="service"
 		:type="classType"
@@ -23,7 +24,10 @@ export default defineComponent({
 			type: Object,
 			required: false,
 		},
-		getResources: Boolean,
+		getResources: {
+			type: Boolean,
+			required: false,
+		},
 		modelValue: {
 			type: Object,
 			required: false,
