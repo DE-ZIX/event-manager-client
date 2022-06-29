@@ -57,7 +57,7 @@ export default defineComponent({
 	},
 	computed: {
 		typeName(): string {
-			return this.classType.constructor.name;
+			return 'Class' || this.classType.constructor.name;
 		},
 	},
 	methods: {
