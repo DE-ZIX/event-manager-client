@@ -13,6 +13,7 @@ import { Event } from '@/models';
 import { EventService } from '@services/eventManagerAPI';
 
 export default defineComponent({
+	name: 'EditEvent',
 	components: {
 		EventForm,
 	},

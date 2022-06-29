@@ -11,6 +11,7 @@ import { Resource } from '@/models';
 import { ResourceService } from '@services/eventManagerAPI';
 
 export default defineComponent({
+	name: 'AddResource',
 	components: {
 		ResourceForm,
 	},

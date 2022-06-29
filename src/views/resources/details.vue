@@ -85,6 +85,7 @@ import ClassList from '@/components/tableList/ClassList.vue';
 import EventList from '@/components/tableList/EventList.vue';
 
 export default defineComponent({
+	name: 'ResourceDetails',
 	components: {
 		EntityEditBtn,
 		EntityOpenBtn,

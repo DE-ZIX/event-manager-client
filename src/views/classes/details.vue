@@ -48,6 +48,7 @@ import EntityEditBtn from '@/components/EntityEditBtn.vue';
 import ResourceList from '@/components/tableList/ResourceList.vue';
 
 export default defineComponent({
+	name: 'ClassDetails',
 	components: {
 		EntityEditBtn,
 		ResourceList,

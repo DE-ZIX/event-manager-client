@@ -13,6 +13,7 @@ import { ResourceService } from '@services/eventManagerAPI';
 import { Resource } from '@/models';
 
 export default defineComponent({
+	name: 'EditResource',
 	components: {
 		ResourceForm,
 	},
