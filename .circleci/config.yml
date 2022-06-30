@@ -10,13 +10,9 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 
 jobs:
-  test:
-    # This is the node version to use for the `cimg/node` tag
-    # Relevant tags can be found on the CircleCI Developer Hub
-    # https://circleci.com/developer/images/image/cimg/node
+  test-unit:
     docker:
       - image: cimg/node:16.10
-    # If you are using yarn, change the line below from "npm" to "yarn"
     steps:
       - checkout
       - node/install-packages:
@@ -27,10 +23,4 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - node/test:
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: yarn
+      - test-unit
