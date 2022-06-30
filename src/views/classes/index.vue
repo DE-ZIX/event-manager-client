@@ -7,6 +7,7 @@ import { defineComponent } from 'vue';
 import ClassList from '@/components/tableList/ClassList.vue';
 
 export default defineComponent({
+	name: 'ClassesIndex',
 	components: {
 		ClassList,
 	},

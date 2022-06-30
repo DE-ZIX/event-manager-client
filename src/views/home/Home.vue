@@ -15,7 +15,7 @@ import EventList from '@/components/tableList/EventList.vue';
 import ClassList from '@/components/tableList/ClassList.vue';
 
 export default defineComponent({
-	name: 'Home',
+	name: 'HomePage',
 	components: {
 		ResourceList,
 		EventList,

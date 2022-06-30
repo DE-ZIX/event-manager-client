@@ -8,9 +8,10 @@
 import { defineComponent, ref } from 'vue';
 import EventForm from '@/views/events/EventForm.vue';
 import { Event } from '@/models';
-import { EventService } from '@services/eventManagerAPI';
+import { EventService } from '@/services/eventManagerAPI';
 
 export default defineComponent({
+	name: 'AddEvent',
 	components: {
 		EventForm,
 	},

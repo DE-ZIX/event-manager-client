@@ -8,9 +8,10 @@
 import { defineComponent, ref } from 'vue';
 import ClassForm from '@/views/classes/ClassForm.vue';
 import { Class } from '@/models';
-import { ClassService } from '@services/eventManagerAPI';
+import { ClassService } from '@/services/eventManagerAPI';
 
 export default defineComponent({
+	name: 'AddClass',
 	components: {
 		ClassForm,
 	},

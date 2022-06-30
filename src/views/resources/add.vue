@@ -8,9 +8,10 @@
 import { defineComponent, ref } from 'vue';
 import ResourceForm from '@/views/resources/ResourceForm.vue';
 import { Resource } from '@/models';
-import { ResourceService } from '@services/eventManagerAPI';
+import { ResourceService } from '@/services/eventManagerAPI';
 
 export default defineComponent({
+	name: 'AddResource',
 	components: {
 		ResourceForm,
 	},

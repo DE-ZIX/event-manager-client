@@ -1,8 +1,10 @@
 // https://docs.cypress.io/api/introduction/api.html
 
-describe('My First Test', () => {
+describe('Home basic test', () => {
 	it('Visits the app root url', () => {
 		cy.visit('/');
-		cy.contains('h1', 'Welcome to Your Vue.js + TypeScript App');
+		cy.get('#resource_list').should('exist');
+		cy.get('#event_list').should('exist');
+		cy.get('#class_list').should('exist');
 	});
 });

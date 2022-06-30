@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { ClassService } from '@services/eventManagerAPI';
+import { ClassService } from '@/services/eventManagerAPI';
 import EntityList from '@/components/tableList/EntityList.vue';
 import { Class } from '@/models';
 
@@ -57,7 +57,7 @@ export default defineComponent({
 	},
 	computed: {
 		typeName(): string {
-			return this.classType.constructor.name;
+			return 'Class' || this.classType.constructor.name;
 		},
 	},
 	methods: {
