@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import ResourceForm from '@/views/resources/ResourceForm.vue';
-import { ResourceService } from '@services/eventManagerAPI';
+import { ResourceService } from '@/services/eventManagerAPI';
 import { Resource } from '@/models';
 
 export default defineComponent({

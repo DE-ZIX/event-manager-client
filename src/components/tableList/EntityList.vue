@@ -44,7 +44,7 @@ import {
 	ClassService,
 	ResourceService,
 	AuthorService,
-} from '@services/eventManagerAPI';
+} from '@/services/eventManagerAPI';
 import {
 	ConsultList,
 	ConsultListMetadata,

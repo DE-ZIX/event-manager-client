@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import EntityList from '@/components/tableList/EntityList.vue';
-import { ResourceService } from '@services/eventManagerAPI';
+import { ResourceService } from '@/services/eventManagerAPI';
 import { Resource } from '@/models';
 
 export default defineComponent({

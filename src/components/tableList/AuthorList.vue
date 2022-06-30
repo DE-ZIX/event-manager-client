@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { AuthorService } from '@services/eventManagerAPI';
+import { AuthorService } from '@/services/eventManagerAPI';
 import EntityList from '@/components/tableList/EntityList.vue';
 import { Author } from '@/models';
 

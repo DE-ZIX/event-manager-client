@@ -77,7 +77,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { ResourceService } from '@services/eventManagerAPI';
+import { ResourceService } from '@/services/eventManagerAPI';
 import { Resource } from '@/models';
 import EntityEditBtn from '@/components/EntityEditBtn.vue';
 import EntityOpenBtn from '@/components/EntityOpenBtn.vue';

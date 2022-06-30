@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { EventService } from '@services/eventManagerAPI';
+import { EventService } from '@/services/eventManagerAPI';
 import EntityList from '@/components/tableList/EntityList.vue';
 import { Event } from '@/models';
 
