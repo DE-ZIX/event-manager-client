@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class EventManagerAPIService {
-	private static _eventManagerAPIServiceBaseURL = 'http://localhost:3005/';
-	//private static _eventManagerAPIServiceBaseURL: string = process.env.EVENT_MANAGER_API_BASE_URL!;
+	// private static _eventManagerAPIServiceBaseURL = 'http://localhost:3005/';
+	private static _eventManagerAPIServiceBaseURL: string =
+		process.env.VUE_APP_EVENT_MANAGER_API_BASE_URL || '';
 
 	get eventManagerBaseURL(): string {
 		return EventManagerAPIService._eventManagerAPIServiceBaseURL;
