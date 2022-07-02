@@ -11,7 +11,7 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 
 jobs:
-  yarn-install:
+  install:
     docker:
       - image: cimg/node:16.10
     steps:
@@ -40,8 +40,11 @@ jobs:
       - run: yarn test:unit
   test-e2e:
     docker:
-      - image: cimg/node:16.10
-    parallelism: 4
+      - image: cypress/base:14.16.0
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
+    working_directory: ~/app
     steps:
       - checkout
       - restore_cache:
@@ -53,11 +56,20 @@ workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - yarn-install
+      - install
       - test-unit:
           requires:
-              - yarn-install
-      - test-e2e:
+              - install
+      - cypress/install:
+          yarn: true
+          build: yarn build # run a custom app build step
+      - cypress/run:
+          yarn: true
           requires:
-              - yarn-install
+            - cypress/install
+          record: true # record results on Cypress Dashboard
+          parallel: true # split all specs across machines
+          parallelism: 4 # use 4 CircleCI machines to finish quickly
+          group: 'all tests' # name this group "all tests" on the dashboard
+          start: 'yarn start' # start server before running tests
 
