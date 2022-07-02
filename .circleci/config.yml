@@ -44,6 +44,7 @@ jobs:
         environment:
             ## this enables colors in the output
             TERM: xterm
+    working_directory: ~/app
     steps:
       - checkout
       - restore_cache:
