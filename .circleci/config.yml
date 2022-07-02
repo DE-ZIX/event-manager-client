@@ -40,21 +40,14 @@ jobs:
       - run: yarn test:unit
   test-e2e:
     docker:
-      - image: cypress/base:16.10.0
-        environment:
-            ## this enables colors in the output
-            TERM: xterm
-    working_directory: ~/app
+      - image: cimg/node:16.10
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
             - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: ls
-      - run: pwd
-      - run: cd ~/app
-      - run: ls
       - run: yarn cypress run --record --key 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
