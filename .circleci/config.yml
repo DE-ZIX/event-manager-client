@@ -16,14 +16,45 @@ jobs:
       - image: cimg/node:16.10
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
+            - deps-{{ .Branch }}
+            - deps
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache ## cache both yarn and Cypress!
   test-unit:
     docker:
       - image: cimg/node:16.10
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}
+            - asset-cache-v1
       - run: yarn test:unit
+  test-e2e:
+    docker:
+      - image: cypress/base:14.16.0
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}
+            - asset-cache-v1
+      - run: $(yarn bin)/cypress run --record --key <record_key>
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
@@ -32,12 +63,7 @@ workflows:
       - test-unit:
           requires:
               - install
-      - cypress/run:
+      - test-e2e:
           requires:
-            - install
-          record: true # record results on Cypress Dashboard
-          parallel: true # split all specs across machines
-          parallelism: 4 # use 4 CircleCI machines to finish quickly
-          group: 'all tests' # name this group "all tests" on the dashboard
-          start: 'npm start' # start server before running tests
+              - install
 
