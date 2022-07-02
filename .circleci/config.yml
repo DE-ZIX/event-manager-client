@@ -29,7 +29,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - install
-      - test-unit
+      - test-unit:
+          requires:
+              - install
       - cypress/run:
           requires:
             - install
