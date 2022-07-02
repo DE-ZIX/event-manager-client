@@ -52,6 +52,8 @@ jobs:
           keys:
             - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: ls
+      - run: cp -R ../node_modules node_modules
+      - run: cp -R ../.cache .cache
       - run: yarn cypress run --record --key 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
