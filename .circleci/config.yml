@@ -19,28 +19,24 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
-            - deps-{{ .Branch }}
-            - deps
+            - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn install --immutable
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          key: deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache ## cache both yarn and Cypress!
+            - node_modules
   test-unit:
     docker:
       - image: cimg/node:16.10
     steps:
       - checkout
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
-            - deps-{{ .Branch }}
-            - deps
+            - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn test:unit
   test-e2e:
     docker:
@@ -51,12 +47,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
-            - deps-{{ .Branch }}
-            - deps
-      - run: yarn cypress run --record --key <record_key>
+            - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: yarn cypress run --record --key 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
