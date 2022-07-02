@@ -37,9 +37,10 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}
-            - asset-cache-v1
+            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
+            - deps-{{ .Branch }}
+            - deps
       - run: yarn test:unit
   test-e2e:
     docker:
@@ -51,10 +52,11 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}
-            - asset-cache-v1
-      - run: $(yarn bin)/cypress run --record --key <record_key>
+            - deps-yarn-lock-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - deps-yarn-packages-{{ .Branch }}-{{ checksum "package.json" }}
+            - deps-{{ .Branch }}
+            - deps
+      - run: yarn cypress run --record --key <record_key>
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
