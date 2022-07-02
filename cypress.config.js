@@ -2,6 +2,7 @@ import nodeEvents from 'tests/e2e/plugins/index.js';
 
 const { defineConfig } = require('cypress');
 module.exports = defineConfig({
+	projectId: 'c7zwij',
 	scrollBehavior: false,
 	e2e: {
 		viewportWidth: 1920,
