@@ -22,6 +22,7 @@ jobs:
     docker:
       - image: cimg/node:16.10
     steps:
+      - checkout
       - run: yarn test:unit
 workflows:
   build-and-test: # This is the name of the workflow, feel free to change it to better match your workflow.
