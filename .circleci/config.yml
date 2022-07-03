@@ -42,9 +42,13 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn test:unit --ci --runInBand --reporters=default
+      - run: 
+          name: Run tests with JUnit reporter
+          command: yarn test:unit --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - store_test_results:
-          path: ./reports/
+          path: ./reports/junit/
   test-e2e:
     docker:
       - image: cypress/base:14.16.0
