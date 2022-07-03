@@ -42,7 +42,9 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn test:unit
+      - run: yarn test:unit --ci --runInBand --reporters=default
+      - store_test_results:
+          path: ./reports/
   test-e2e:
     docker:
       - image: cypress/base:14.16.0
