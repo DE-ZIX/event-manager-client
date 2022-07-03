@@ -44,6 +44,7 @@ jobs:
         environment:
             ## this enables colors in the output
             TERM: xterm
+            CYPRESS_RECORD_KEY: 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
     working_directory: ~/app
     steps:
       - checkout
