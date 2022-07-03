@@ -7909,6 +7909,7 @@ __metadata:
     eslint-plugin-prettier: ^4.1.0
     eslint-plugin-vue: ^9.1.1
     jest: ^27.5.1
+    jest-junit: ^14.0.0
     lint-staged: ^13.0.3
     prettier: ^2.7.1
     quasar: ^2.7.4
@@ -10213,6 +10214,18 @@ __metadata:
     pretty-format: ^27.5.1
     throat: ^6.0.1
   checksum: b716adf253ceb73db661936153394ab90d7f3a8ba56d6189b7cd4df8e4e2a4153b4e63ebb5d36e29ceb0f4c211d5a6f36ab7048c6abbd881c8646567e2ab8e6d
+  languageName: node
+  linkType: hard
+
+"jest-junit@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "jest-junit@npm:14.0.0"
+  dependencies:
+    mkdirp: ^1.0.4
+    strip-ansi: ^6.0.1
+    uuid: ^8.3.2
+    xml: ^1.0.1
+  checksum: 89d6755f895360be9440d0feacc1a7da9adf23fa9a58746f6f80946cd55d91ba3d32314698615090682684d8315518a166fe46a60cdbd16b38e0c5c8d6418e55
   languageName: node
   linkType: hard
 
@@ -16926,6 +16939,13 @@ __metadata:
   version: 4.0.0
   resolution: "xml-name-validator@npm:4.0.0"
   checksum: af100b79c29804f05fa35aa3683e29a321db9b9685d5e5febda3fa1e40f13f85abc40f45a6b2bf7bee33f68a1dc5e8eaef4cec100a304a9db565e6061d4cb5ad
+  languageName: node
+  linkType: hard
+
+"xml@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "xml@npm:1.0.1"
+  checksum: 11b5545ef3f8fec3fa29ce251f50ad7b6c97c103ed4d851306ec23366f5fa4699dd6a942262df52313a0cd1840ab26256da253c023bad3309d8ce46fe6020ca0
   languageName: node
   linkType: hard
 
