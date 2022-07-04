@@ -1,10 +1,20 @@
 const apiHost = Cypress.env('event_manager_api_host');
 
+const useMock = Cypress.env('use_mock');
+
+import mockData from '@tests/e2e/mock/resources.json';
+
+const mock = useMock ? mockData : {};
+
 describe('Resources listing test', () => {
 	it('Tests resources listing', () => {
-		cy.intercept({ headers: { host: apiHost }, pathname: '/resources' }).as(
-			'getResources',
-		);
+		console.log(useMock);
+		const route = { headers: { host: apiHost }, pathname: '/resources' };
+		if (useMock) {
+			cy.intercept(route, mock).as('getResources');
+		} else {
+			cy.intercept(route).as('getResources');
+		}
 		cy.visit('/resources');
 		cy.wait('@getResources').then((res) => {
 			cy.get('#resource_list').should('exist');
