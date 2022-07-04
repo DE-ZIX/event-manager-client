@@ -15,6 +15,7 @@ executors:
       - image: 'cypress/base:14.16.0'
     environment:
       CYPRESS_RECORD_KEY: 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
+      CYPRESS_use_mock: true
 jobs:
   install:
     docker:
@@ -42,7 +43,7 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: 
+      - run:
           name: Run tests with JUnit reporter
           command: yarn test:unit --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
@@ -53,8 +54,8 @@ jobs:
     docker:
       - image: cypress/base:14.16.0
         environment:
-            ## this enables colors in the output
-            TERM: xterm
+          ## this enables colors in the output
+          TERM: xterm
     working_directory: ~/app
     steps:
       - checkout
@@ -70,7 +71,7 @@ workflows:
       - install
       - test-unit:
           requires:
-              - install
+            - install
       - cypress/install:
           yarn: true
           build: yarn build # run a custom app build step
@@ -88,4 +89,3 @@ workflows:
           post-steps:
             - store_test_results:
                 path: cypress/results
-
