@@ -21,6 +21,8 @@ module.exports = {
 				'@views': path.resolve(__dirname, 'src/views/'),
 				'@mixins': path.resolve(__dirname, 'src/mixins/'),
 				'@store': path.resolve(__dirname, 'src/store/'),
+				'@tests': path.resolve(__dirname, 'tests/'),
+				'@e2e': path.resolve(__dirname, 'tests/e2e/'),
 			},
 			extensions: ['.ts', '.js', '.vue', '.json', '.d.ts'],
 		},

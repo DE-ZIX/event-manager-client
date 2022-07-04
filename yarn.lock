@@ -2534,6 +2534,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cypress/webpack-preprocessor@npm:^5.12.0":
+  version: 5.12.0
+  resolution: "@cypress/webpack-preprocessor@npm:5.12.0"
+  dependencies:
+    bluebird: 3.7.1
+    debug: ^4.3.2
+    lodash: ^4.17.20
+  peerDependencies:
+    "@babel/core": ^7.0.1
+    "@babel/preset-env": ^7.0.0
+    babel-loader: ^8.0.2
+    webpack: ^4 || ^5
+  checksum: 3fa209655412369eb5bf0e8e0eaf25c89f0dfc6937d9aa4c51aa351449cf3d56b1834908dc81e507eb3d6508fee8534769b576f46f26034220a9f3f82ed7b3f8
+  languageName: node
+  linkType: hard
+
 "@cypress/xvfb@npm:^1.2.4":
   version: 1.2.4
   resolution: "@cypress/xvfb@npm:1.2.4"
@@ -5514,6 +5530,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bluebird@npm:3.7.1":
+  version: 3.7.1
+  resolution: "bluebird@npm:3.7.1"
+  checksum: 58c295399e109925149977ebcb40e42fd109d3e458899e71441bc7e5e0867bbd796fdd20278b425fa29f13377fe335fbfc2a6e68e5ca1da03b1c3afdc439d097
+  languageName: node
+  linkType: hard
+
 "bluebird@npm:^3.1.1, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
@@ -7880,6 +7903,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "event-manager-client@workspace:."
   dependencies:
+    "@cypress/webpack-preprocessor": ^5.12.0
     "@quasar/app": ^3.3.3
     "@quasar/extras": ^1.14.2
     "@types/jest": ^27.5.2

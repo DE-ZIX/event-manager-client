@@ -23,7 +23,9 @@
 			"@assets/*": ["src/assets/*"],
 			"@mixins/*": ["src/mixins/*"],
 			"@components/*": ["src/components/*"],
-			"@store/*": ["src/store/*"]
+			"@store/*": ["src/store/*"],
+			"@tests/*": ["tests/*"],
+			"@e2e/*": ["tests/e2e/*"]
 		},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	},
