@@ -1,4 +1,4 @@
-import mockData from '@tests/e2e/mock/Creating/createResource.json';
+import mockData from '@tests/e2e/mock/Creating/createClass.json';
 
 const apiHost = Cypress.env('event_manager_api_host');
 const useMock = Cypress.env('use_mock');
