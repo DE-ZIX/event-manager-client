@@ -34,6 +34,18 @@ jobs:
           paths:
             - ~/.cache ## cache both yarn and Cypress!
             - node_modules
+  lint:
+    docker:
+      - image: cimg/node:16.10
+    steps:
+      - checkout
+      - restore_cache:
+            name: Restore Yarn Package Cache
+            keys:
+              - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Lint code with ESLint
+          command: yarn vue-cli-service lint --no-fix --max-warnings=0
   test-unit:
     docker:
       - image: cimg/node:16.10
@@ -69,9 +81,12 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - install
-      - test-unit:
+      - lint:
           requires:
             - install
+      - test-unit:
+          requires:
+            - lint
       - cypress/install:
           yarn: true
           build: yarn build # run a custom app build step
