@@ -34,6 +34,18 @@ jobs:
           paths:
             - ~/.cache ## cache both yarn and Cypress!
             - node_modules
+  lint:
+    docker:
+      - image: cimg/node:16.10
+    steps:
+      - checkout
+      - restore_cache:
+            name: Restore Yarn Package Cache
+            keys:
+              - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Lint code with ESLint
+          command: yarn vue-cli-service lint --no-fix
   test-unit:
     docker:
       - image: cimg/node:16.10
