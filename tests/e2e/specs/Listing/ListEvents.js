@@ -1,10 +1,21 @@
+import mockData from '@tests/e2e/mock/Listing/events.json';
 const apiHost = Cypress.env('event_manager_api_host');
+const useMock = Cypress.env('use_mock');
+const mock = {
+	statusCode: 200,
+	body: {
+		items: mockData,
+	},
+};
 
 describe('Events listing test', () => {
 	it('Tests events listing', () => {
-		cy.intercept({ headers: { host: apiHost }, pathname: '/events' }).as(
-			'getEvents',
-		);
+		const route = { headers: { host: apiHost }, pathname: '/events' };
+		if (useMock) {
+			cy.intercept(route, mock).as('getEvents');
+		} else {
+			cy.intercept(route).as('getEvents');
+		}
 		cy.visit('/events');
 		cy.wait('@getEvents').then((res) => {
 			cy.get('#event_list').should('exist');
@@ -13,12 +24,8 @@ describe('Events listing test', () => {
 			const { items } = res.response.body;
 			cy.wrap(items).its('length').should('be.gt', 0);
 			cy.get('#event_list tr').first().should('exist');
-			// expect(res.response.body).to.have.property('items');
-			// expect(items).to.have.length.greaterThan(0);
-			// cy.wrap(items).as('items');
 			const firstItem = items[0];
 			cy.wrap(firstItem).should('have.property', 'id');
-			// expect(firstItem).to.have.property('id');
 			cy.wrap(firstItem).as('firstItem');
 			// eq(1) because of the header row
 			cy.get('#event_list tr')

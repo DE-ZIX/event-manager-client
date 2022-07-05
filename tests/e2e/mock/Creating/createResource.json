@@ -1,0 +1,10 @@
+{
+	"id": 1,
+	"title": "Test resource",
+	"description": "An resource description",
+	"link": "https://nodejs.org/en/",
+	"image": "https://nodejs.org/en/test.jpg",
+	"keywords": ["tag1", "tag2", "tag3"],
+	"createdDate": "2020-01-01T00:00:00.000Z",
+	"updatedDate": "2020-01-01T00:00:00.000Z"
+}

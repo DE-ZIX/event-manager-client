@@ -1,0 +1,17 @@
+{
+	"items": [
+		{
+			"@id": "7b993db0-46e6-4e92-a488-0745a53e370e",
+			"id": 3,
+			"image": null,
+			"imageFileName": null,
+			"imageFileType": null,
+			"title": "New Class test",
+			"description": "Class description",
+			"updatedDate": "27/06/2022"
+		}
+	],
+	"metadata": {
+		"total": 1
+	}
+}

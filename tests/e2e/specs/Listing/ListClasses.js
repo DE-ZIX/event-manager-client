@@ -1,10 +1,21 @@
+import mockData from '@tests/e2e/mock/Listing/classes.json';
 const apiHost = Cypress.env('event_manager_api_host');
+const useMock = Cypress.env('use_mock');
+const mock = {
+	statusCode: 200,
+	body: {
+		items: mockData,
+	},
+};
 
 describe('Classes listing test', () => {
 	it('Tests classes listing', () => {
-		cy.intercept({ headers: { host: apiHost }, pathname: '/classes' }).as(
-			'getClasses',
-		);
+		const route = { headers: { host: apiHost }, pathname: '/classes' };
+		if (useMock) {
+			cy.intercept(route, mock).as('getClasses');
+		} else {
+			cy.intercept(route).as('getClasses');
+		}
 		cy.visit('/classes');
 		cy.wait('@getClasses').then((res) => {
 			cy.get('#class_list').should('exist');
