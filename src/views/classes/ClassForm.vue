@@ -1,14 +1,15 @@
 <template>
 	<div class="row">
 		<div class="col-8 q-gutter-y-lg">
-			<q-input v-model="model.title" filled label="Title" />
+			<q-input for="class_title" v-model="model.title" filled label="Title" />
 			<q-input
 				v-model="model.description"
+				for="class_description"
 				label="Description"
 				filled
 				type="textarea"
 			/>
-			<q-file v-model="model.image" label="Image" filled>
+			<q-file for="class_image" v-model="model.image" label="Image" filled>
 				<template v-slot:prepend>
 					<q-icon name="attach_file" />
 				</template>

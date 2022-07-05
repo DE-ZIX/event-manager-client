@@ -2,7 +2,7 @@
 	<div>
 		<h5>Class</h5>
 		<div class="row items-center q-gutter-x-md">
-			<h6>{{ modelValue.getName() }}</h6>
+			<h6 id="class_title">{{ modelValue.getName() }}</h6>
 			<entity-edit-btn
 				:modelValue="modelValue"
 				v-if="modelValue.id"
@@ -10,15 +10,17 @@
 			/>
 		</div>
 		<div class="q-gutter-y-lg">
-			<div>ID: {{ modelValue.id }}</div>
-			<div>
+			<div id="class_id">ID: {{ modelValue.id }}</div>
+			<div id="class_description">
 				<div>Description:</div>
 				<div>{{ modelValue.description }}</div>
 			</div>
-			<div>Last Updated: {{ modelValue.updatedDate }}</div>
+			<div id="class_updated_date">
+				Last Updated: {{ modelValue.updatedDate }}
+			</div>
 			<div v-if="modelValue.image">
 				<div>Image:</div>
-				<img v-if="imageURL" :src="imageURL" />
+				<img id="class_image" v-if="imageURL" :src="imageURL" />
 			</div>
 			<div>
 				<resource-list

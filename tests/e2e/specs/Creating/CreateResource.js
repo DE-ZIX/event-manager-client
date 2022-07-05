@@ -1,7 +1,7 @@
+import mockData from '@tests/e2e/mock/Creating/createResource.json';
+
 const apiHost = Cypress.env('event_manager_api_host');
 const useMock = Cypress.env('use_mock');
-
-import mockData from '@tests/e2e/mock/Creating/createResource.json';
 
 describe('Creating resource test', () => {
 	it('Tests creating resource', () => {
@@ -63,34 +63,15 @@ describe('Creating resource test', () => {
 			cy.get('@postResourceCreatedDate').then((createdDate) => {
 				cy.get('#resource_created_date').should('contain', createdDate);
 			});
-			// cy.get('@postResourceUpdatedDate').then((updatedDate) => {
-			// 	cy.get('#resource_updated_date').should('contain', updatedDate);
-			// });
-			cy.get('#resource_image')
-				.should(([img]) => {
-					expect(img.complete).to.be.true;
-				})
-				.should('be.visible')
-				.should(([img]) => {
-					expect(img.naturalWidth).to.be.greaterThan(0);
-					expect(img.naturalHeight).to.be.greaterThan(0);
-				})
-				.then(([img]) => {
-					cy.fixture('test.jpg').then((fixture) => {
-						cy.get('@postResourceImg').then((postResourceImg) => {
-							expect(postResourceImg).to.equal(fixture);
-						});
-						const fixtureImg = new Image();
-						fixtureImg.src = `data:image/jpeg;base64,${fixture}`;
-						return new Promise((resolve) => {
-							fixtureImg.onload = () => {
-								expect(img.naturalWidth).to.equal(fixtureImg.naturalWidth);
-								expect(img.naturalHeight).to.equal(fixtureImg.naturalHeight);
-								resolve();
-							};
-						});
-					});
-				});
+			cy.get('@postResourceUpdatedDate').then((updatedDate) => {
+				cy.get('#resource_updated_date').should('contain', updatedDate);
+			});
+			cy.get('@postResourceImg').then((postResourceImg) => {
+				cy.get('#resource_image').imagesShouldEqual(
+					'test.jpg',
+					postResourceImg,
+				);
+			});
 			cy.get('#resource_keywords').should('contain', 'tag1');
 			cy.get('#resource_keywords').should('contain', 'tag2');
 			cy.get('#resource_keywords').should('contain', 'tag3');

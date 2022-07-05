@@ -23,3 +23,43 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add(
+	'imagesShouldEqual',
+	{
+		prevSubject: true,
+	},
+	(subject, fixtureImage, base64) => {
+		cy.wrap(subject)
+			.should(([img]) => {
+				expect(img.complete).to.be.true;
+			})
+			.should('be.visible')
+			.should(([img]) => {
+				expect(img.naturalWidth).to.be.greaterThan(0);
+				expect(img.naturalHeight).to.be.greaterThan(0);
+			})
+			.then(([img]) => {
+				cy.fixture(fixtureImage).then((fixture) => {
+					if (base64) {
+						expect(base64).to.equal(fixture);
+					}
+					const fixtureImg = new Image();
+					fixtureImg.src = `data:image/jpeg;base64,${fixture}`;
+					return new Promise((resolve) => {
+						fixtureImg.onload = () => {
+							cy.wrap(img.naturalHeight).should(
+								'equal',
+								fixtureImg.naturalHeight,
+							);
+							cy.wrap(img.naturalWidth).should(
+								'equal',
+								fixtureImg.naturalWidth,
+							);
+							resolve();
+						};
+					});
+				});
+			});
+	},
+);
