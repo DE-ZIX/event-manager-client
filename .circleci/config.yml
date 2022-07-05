@@ -81,9 +81,12 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - install
-      - test-unit:
+      - lint:
           requires:
             - install
+      - test-unit:
+          requires:
+            - lint
       - cypress/install:
           yarn: true
           build: yarn build # run a custom app build step
