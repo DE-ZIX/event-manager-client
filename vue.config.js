@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 	lintOnSave: true,
@@ -11,6 +12,13 @@ module.exports = {
 	},
 	transpileDependencies: ['quasar'],
 	configureWebpack: {
+		plugins: [
+			// Work around for Buffer is undefined:
+			// https://github.com/webpack/changelog-v5/issues/10
+			new webpack.ProvidePlugin({
+				Buffer: ['buffer', 'Buffer'],
+			}),
+		],
 		resolve: {
 			alias: {
 				src: path.resolve(__dirname, 'src/'),
