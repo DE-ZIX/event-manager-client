@@ -1,7 +1,14 @@
 <template>
 	<h5>Add new Resource</h5>
 	<resource-form v-model="modelValue" />
-	<q-btn @click="save" class="q-mt-lg" label="Save" color="primary" no-caps />
+	<q-btn
+		@click="save"
+		id="resource_submit"
+		class="q-mt-lg"
+		label="Save"
+		color="primary"
+		no-caps
+	/>
 </template>
 
 <script lang="ts">

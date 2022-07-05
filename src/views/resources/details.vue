@@ -2,7 +2,7 @@
 	<div>
 		<h5>Resource</h5>
 		<div class="row items-center q-gutter-x-md">
-			<h6>{{ modelValue.getName() }}</h6>
+			<h6 id="resource_title">{{ modelValue.getName() }}</h6>
 			<entity-edit-btn
 				:modelValue="modelValue"
 				v-if="modelValue.id"
@@ -10,15 +10,19 @@
 			/>
 		</div>
 		<div class="q-gutter-y-lg">
-			<div>ID: {{ modelValue.id }}</div>
-			<div>
+			<div id="resource_id">ID: {{ modelValue.id }}</div>
+			<div id="resource_description">
 				<div>Description:</div>
 				<div>{{ modelValue.description }}</div>
 			</div>
-			<div>Link: {{ modelValue.link }}</div>
+			<div id="resource_link">Link: {{ modelValue.link }}</div>
 			<div class="row q-gutter-x-lg">
-				<div>Created At: {{ modelValue.createdDate }}</div>
-				<div>Last Updated: {{ modelValue.updatedDate }}</div>
+				<div id="resource_created_date">
+					Created At: {{ modelValue.createdDate }}
+				</div>
+				<div id="resource_updated_date">
+					Last Updated: {{ modelValue.updatedDate }}
+				</div>
 			</div>
 			<div v-if="modelValue.responsibleAuthor">
 				<div>
@@ -40,9 +44,9 @@
 			</div>
 			<div v-if="modelValue.image">
 				<div>Image:</div>
-				<img v-if="imageURL" :src="imageURL" />
+				<img id="resource_image" v-if="imageURL" :src="imageURL" />
 			</div>
-			<div class="q-gutter-x-sm">
+			<div id="resource_keywords" class="q-gutter-x-sm">
 				Keywords:
 				<q-badge v-for="keyword in modelValue.keywords" :key="keyword">
 					{{ keyword }}
