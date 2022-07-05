@@ -45,7 +45,7 @@ jobs:
               - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Lint code with ESLint
-          command: yarn vue-cli-service lint --no-fix
+          command: yarn vue-cli-service lint --no-fix --max-warnings=0
   test-unit:
     docker:
       - image: cimg/node:16.10
