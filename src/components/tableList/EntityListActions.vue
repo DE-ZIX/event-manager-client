@@ -5,6 +5,7 @@
 		<q-btn
 			icon="o_delete"
 			flat
+			id="delete_btn"
 			round
 			color="negative"
 			@click="confirmDelete = true"
@@ -16,6 +17,7 @@
 		<q-btn
 			icon="close"
 			flat
+			id="unlink_btn"
 			round
 			color="negative"
 			@click="unlink"

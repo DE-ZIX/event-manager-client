@@ -1,9 +1,10 @@
 <template>
 	<router-link
+		id="open_in_new_link"
 		:to="{ name: `details${typeName}`, params: { id: modelValue.id } }"
 		target="_blank"
 	>
-		<q-btn icon="open_in_new" flat round color="primary">
+		<q-btn icon="open_in_new" id="open_in_new_btn" flat round color="primary">
 			<q-tooltip>
 				<span>Open in New Tab</span>
 			</q-tooltip>

@@ -40,26 +40,28 @@ Cypress.Commands.add(
 				expect(img.naturalHeight).to.be.greaterThan(0);
 			})
 			.then(([img]) => {
-				cy.fixture(fixtureImage).then((fixture) => {
-					if (base64) {
-						expect(base64).to.equal(fixture);
-					}
-					const fixtureImg = new Image();
-					fixtureImg.src = `data:image/jpeg;base64,${fixture}`;
-					return new Promise((resolve) => {
-						fixtureImg.onload = () => {
-							cy.wrap(img.naturalHeight).should(
-								'equal',
-								fixtureImg.naturalHeight,
-							);
-							cy.wrap(img.naturalWidth).should(
-								'equal',
-								fixtureImg.naturalWidth,
-							);
-							resolve();
-						};
+				if (fixtureImage) {
+					cy.fixture(fixtureImage).then((fixture) => {
+						if (base64) {
+							expect(base64).to.equal(fixture);
+						}
+						const fixtureImg = new Image();
+						fixtureImg.src = `data:image/jpeg;base64,${fixture}`;
+						return new Promise((resolve) => {
+							fixtureImg.onload = () => {
+								cy.wrap(img.naturalHeight).should(
+									'equal',
+									fixtureImg.naturalHeight,
+								);
+								cy.wrap(img.naturalWidth).should(
+									'equal',
+									fixtureImg.naturalWidth,
+								);
+								resolve();
+							};
+						});
 					});
-				});
+				}
 			});
 	},
 );

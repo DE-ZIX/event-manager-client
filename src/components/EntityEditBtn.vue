@@ -1,6 +1,6 @@
 <template>
 	<router-link :to="{ name: `edit${typeName}`, params: { id: modelValue.id } }">
-		<q-btn icon="o_edit" flat round color="primary">
+		<q-btn icon="o_edit" id="edit_btn" flat round color="primary">
 			<q-tooltip>
 				<span>Edit {{ typeName }}</span>
 			</q-tooltip>
