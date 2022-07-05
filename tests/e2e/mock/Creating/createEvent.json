@@ -1,0 +1,9 @@
+{
+	"id": 1,
+	"title": "Test event",
+	"description": "Test event description",
+	"imageFileName": "test.jpg",
+	"imageFileType": "image/jpeg",
+	"startDate": "05/07/2022",
+	"endDate": "05/08/2022"
+}

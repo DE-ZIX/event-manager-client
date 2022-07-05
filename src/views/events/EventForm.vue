@@ -1,20 +1,22 @@
 <template>
 	<div class="row">
 		<div class="col-8 q-gutter-y-lg">
-			<q-input v-model="model.title" filled label="Title" />
+			<q-input for="event_title" v-model="model.title" filled label="Title" />
 			<q-input
 				v-model="model.description"
+				for="event_description"
 				label="Description"
 				filled
 				type="textarea"
 			/>
-			<q-file v-model="model.image" label="Image" filled>
+			<q-file for="event_image" v-model="model.image" label="Image" filled>
 				<template v-slot:prepend>
-					<q-icon name="attach_file" />
+					<q-icon for="event_image" name="attach_file" />
 				</template>
 			</q-file>
 			<q-input
 				filled
+				for="event_start_date"
 				v-model="model.startDate"
 				label="Start Date"
 				hint="dd/MM/yyyy"
@@ -42,6 +44,7 @@
 				filled
 				v-model="model.endDate"
 				label="End Date"
+				for="event_end_date"
 				mask="##/##/####"
 				hint="dd/MM/yyyy"
 				:rules="dateValidation"

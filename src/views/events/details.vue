@@ -2,7 +2,7 @@
 	<div>
 		<h5>Event</h5>
 		<div class="row items-center q-gutter-x-md">
-			<h6>{{ modelValue.getName() }}</h6>
+			<h6 id="event_title">{{ modelValue.getName() }}</h6>
 			<entity-edit-btn
 				:modelValue="modelValue"
 				v-if="modelValue.id"
@@ -10,18 +10,18 @@
 			/>
 		</div>
 		<div class="q-gutter-y-lg">
-			<div>ID: {{ modelValue.id }}</div>
+			<div id="event_id">ID: {{ modelValue.id }}</div>
 			<div>
 				<div>Description:</div>
-				<div>{{ modelValue.description }}</div>
+				<div id="event_description">{{ modelValue.description }}</div>
 			</div>
 			<div class="row q-gutter-x-lg">
-				<div>Start Date: {{ modelValue.startDate }}</div>
-				<div>End Date: {{ modelValue.endDate }}</div>
+				<div id="event_start_date">Start Date: {{ modelValue.startDate }}</div>
+				<div id="event_end_date">End Date: {{ modelValue.endDate }}</div>
 			</div>
 			<div v-if="modelValue.image">
 				<div>Image:</div>
-				<img v-if="imageURL" :src="imageURL" />
+				<img id="event_image" v-if="imageURL" :src="imageURL" />
 			</div>
 			<div>
 				<resource-list
