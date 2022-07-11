@@ -151,7 +151,7 @@ export default defineComponent({
 				if (newVal.name === 'detailsResource') {
 					setTimeout(() => {
 						this.refetchList();
-					}, 100);
+					}, 1000);
 				}
 			},
 			deep: true,

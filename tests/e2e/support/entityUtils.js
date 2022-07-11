@@ -471,6 +471,7 @@ export default class EntityTest {
 			cy.wrap(res.response.body.items[0].id).as(this.variablesNames.id);
 		});
 		this.checkListView();
+		cy.wait(1000);
 		cy.get(`@${this.variablesNames.id}`).then((id) => {
 			if (entity.name === 'resource') {
 				Entity.interceptListRoute(entity.mock, {
