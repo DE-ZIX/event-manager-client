@@ -15,7 +15,9 @@ executors:
       - image: 'cypress/base:14.16.0'
     environment:
       CYPRESS_RECORD_KEY: 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
-      CYPRESS_use_mock: true
+      CYPRESS_event_manager_api_base_url: https://fast-plateau-08334.herokuapp.com/
+      CYPRESS_event_manager_api_host: fast-plateau-08334.herokuapp.com
+      VUE_APP_EVENT_MANAGER_API_BASE_URL: https://fast-plateau-08334.herokuapp.com/
 jobs:
   install:
     docker:
@@ -40,9 +42,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-            name: Restore Yarn Package Cache
-            keys:
-              - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          name: Restore Yarn Package Cache
+          keys:
+            - deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Lint code with ESLint
           command: yarn vue-cli-service lint --no-fix --max-warnings=0
