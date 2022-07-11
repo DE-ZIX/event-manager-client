@@ -325,6 +325,7 @@ export default class EntityTest {
 			this.visitList();
 			this.checkListView();
 		}
+		cy.wait(1000);
 		this.getListRows()
 			.eq(1)
 			.within(() => {
@@ -618,7 +619,7 @@ export default class EntityTest {
 			const value = entity[field.name];
 			if (value || field.required) {
 				const fieldId = this.getFieldId(field.name);
-				if (field.image) {
+				if (field.image && value) {
 					cy.get(fieldId).imagesShouldBeEqual();
 				} else if (Array.isArray(value)) {
 					cy.get(fieldId).should('contain', ...value);
