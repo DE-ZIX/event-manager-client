@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add(
-	'imagesShouldEqual',
+	'imagesShouldBeEqual',
 	{
 		prevSubject: true,
 	},
@@ -63,5 +63,104 @@ Cypress.Commands.add(
 					});
 				}
 			});
+	},
+);
+
+Cypress.Commands.add(
+	'checkSameDay',
+	{ prevSubject: 'optional' },
+	(subject1, subject2 = new Date()) => {
+		cy.wrap(
+			subject1.getFullYear() === subject2.getFullYear() &&
+				subject1.getMonth() === subject2.getMonth() &&
+				subject1.getDate() === subject2.getDate(),
+		);
+	},
+);
+
+Cypress.Commands.add(
+	'getDateFromString',
+	{ prevSubject: 'optional' },
+	(subject) => {
+		const dateParts = subject.split('/');
+		// month is 0-based, that's why we need dataParts[1] - 1
+		const date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+		cy.wrap(date);
+	},
+);
+
+Cypress.Commands.add('addOneDay', { prevSubject: 'optional' }, (subject) => {
+	cy.wrap(subject)
+		.getDateFromString()
+		.then((date) => {
+			date.setDate(date.getDate() + 1);
+			const yyyy = date.getFullYear();
+			let mm = date.getMonth() + 1;
+			let dd = date.getDate();
+			if (dd < 10) dd = '0' + dd;
+			if (mm < 10) mm = '0' + mm;
+			cy.wrap(dd + '/' + mm + '/' + yyyy);
+		});
+});
+
+Cypress.Commands.add(
+	'dateShouldGreaterThen',
+	{ prevSubject: 'optional' },
+	(subject, date) => {
+		const isNewDateGreater = subject > date;
+		cy.wrap(isNewDateGreater).should('be.true');
+	},
+);
+
+Cypress.Commands.add(
+	'buildInterceptRouteConfig',
+	{ prevSubject: false },
+	(config, mock, name) => {
+		const apiHost = Cypress.env('event_manager_api_host');
+		const useMock = Cypress.env('use_mock');
+		if (typeof config === 'string') {
+			config = { pathname: config };
+		}
+		if (!config.headers) {
+			config.headers = {};
+		}
+		config.headers.host = apiHost;
+		config.name = config.name || name;
+
+		const route = {};
+		route.headers = config.headers;
+		if (config.pathname) route.pathname = config.pathname;
+		if (config.method) route.method = config.method;
+
+		let result = {};
+		if (useMock) {
+			result = {
+				route,
+				res: {
+					statusCode: config.code || 200,
+					body: config.mock || mock || {},
+				},
+				name: config.name,
+			};
+		} else {
+			result = { route, name: config.name };
+		}
+		cy.wrap(result);
+	},
+);
+
+Cypress.Commands.add(
+	'interceptAPIRoute',
+	{
+		prevSubject: false,
+	},
+	(config, mock, name) => {
+		cy.buildInterceptRouteConfig(config, mock, name).then((newConfig) => {
+			if (newConfig.res) {
+				cy.intercept(newConfig.route, newConfig.res).as(newConfig.name);
+			} else {
+				cy.intercept(newConfig.route).as(newConfig.name);
+			}
+		});
 	},
 );

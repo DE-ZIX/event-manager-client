@@ -15,6 +15,13 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import './deleteUtils';
+import './entityUtils';
+import './generalUtils';
+import './listUtils';
+import './resourceUtils';
+import './tableUtils';
+import './typeFields';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
