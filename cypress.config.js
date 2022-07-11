@@ -2,12 +2,17 @@ import nodeEvents from 'tests/e2e/plugins/index.js';
 
 const { defineConfig } = require('cypress');
 module.exports = defineConfig({
+	component: {
+		devServer: {
+			framework: 'vue-cli',
+			bundler: 'webpack',
+		},
+	},
 	projectId: 'c7zwij',
-	scrollBehavior: false,
 	e2e: {
 		baseUrl: 'http://localhost:8080',
-		viewportWidth: 1920,
-		viewportHeight: 1080,
+		viewportWidth: 1380,
+		viewportHeight: 768,
 		setupNodeEvents: nodeEvents,
 		supportFile: 'tests/e2e/support/index.js',
 	},
