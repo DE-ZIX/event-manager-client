@@ -20,6 +20,7 @@ describe('Creating resource test', () => {
 		} else {
 			cy.intercept(postRoute).as('postResource');
 		}
+
 		cy.get('#resource_title').type('Test resource');
 		cy.get('#resource_description').type('An resource description');
 		cy.get('#resource_link').type('https://nodejs.org/en/');
@@ -67,7 +68,7 @@ describe('Creating resource test', () => {
 				cy.get('#resource_updated_date').should('contain', updatedDate);
 			});
 			cy.get('@postResourceImg').then((postResourceImg) => {
-				cy.get('#resource_image').imagesShouldEqual(
+				cy.get('#resource_image').imagesShouldBeEqual(
 					'test.jpg',
 					postResourceImg,
 				);
