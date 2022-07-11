@@ -318,7 +318,7 @@ export default class EntityTest {
 						!res.response.body.items ||
 						res.response.body.items.length === 0
 					) {
-						this.associateEntities({ name: entity.entity, mock: {} }, {}, {});
+						this.associateEntities({ name: entity.entity, mock: {} });
 					}
 				});
 			});
@@ -354,7 +354,7 @@ export default class EntityTest {
 		path += `/${prepend}${capital}`;
 		return path;
 	}
-	associateEntities(entity, listMock, getMock) {
+	associateEntities(entity) {
 		const Entity = new cy.Entity(entity.name);
 		const { mocks } = entity;
 		this.interceptListRoute(mocks.listClass);
