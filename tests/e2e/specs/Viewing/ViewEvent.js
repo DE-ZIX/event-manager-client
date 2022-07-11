@@ -16,8 +16,6 @@ const getRoute = {
 
 describe('View Event Test', () => {
 	it('Tests viewing event through row', () => {
-		cy.visit('/events');
-
 		if (useMock) {
 			cy.intercept(eventsRoute, {
 				statusCode: 200,
@@ -31,6 +29,7 @@ describe('View Event Test', () => {
 			cy.intercept(eventsRoute).as('getEvents');
 			cy.intercept(getRoute).as('getEvent');
 		}
+		cy.visit('/events');
 
 		cy.wait('@getEvents').then((res) => {
 			cy.get('#event_list').should('exist');
@@ -61,7 +60,6 @@ describe('View Event Test', () => {
 	});
 
 	it('Tests viewing event through link', () => {
-		cy.visit('/events');
 		if (useMock) {
 			cy.intercept(eventsRoute, {
 				statusCode: 200,
@@ -70,6 +68,7 @@ describe('View Event Test', () => {
 		} else {
 			cy.intercept(eventsRoute).as('getEvents');
 		}
+		cy.visit('/events');
 
 		cy.wait('@getEvents').then(() => {
 			cy.get('#event_list tr')

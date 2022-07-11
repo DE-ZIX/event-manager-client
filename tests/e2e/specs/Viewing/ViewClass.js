@@ -16,8 +16,6 @@ const getRoute = {
 
 describe('View Class Test', () => {
 	it('Tests viewing class through row', () => {
-		cy.visit('/classes');
-
 		if (useMock) {
 			cy.intercept(classesRoute, {
 				statusCode: 200,
@@ -31,6 +29,7 @@ describe('View Class Test', () => {
 			cy.intercept(classesRoute).as('getClasses');
 			cy.intercept(getRoute).as('getClass');
 		}
+		cy.visit('/classes');
 
 		cy.wait('@getClasses').then((res) => {
 			cy.get('#class_list').should('exist');
@@ -57,8 +56,35 @@ describe('View Class Test', () => {
 			cy.get('#class_description').should('contain', classItem.description);
 			cy.get('#class_updated_date').should('contain', classItem.updatedDate);
 			if (classItem.image) {
-				cy.get('#class_image').imagesShouldEqual();
+				cy.get('#class_image').imagesShouldBeEqual();
 			}
+		});
+	});
+	it('Tests viewing class through link', () => {
+		if (useMock) {
+			cy.intercept(classesRoute, {
+				statusCode: 200,
+				body: mockData,
+			}).as('getClasses');
+		} else {
+			cy.intercept(classesRoute).as('getClasses');
+		}
+		cy.visit('/classes');
+
+		cy.wait('@getClasses').then(() => {
+			cy.get('#class_list tr')
+				.eq(1)
+				.within(() => {
+					cy.get('td')
+						.last()
+						.within(() => {
+							cy.get('#open_in_new_link').should(
+								'have.attr',
+								'target',
+								'_blank',
+							);
+						});
+				});
 		});
 	});
 });
