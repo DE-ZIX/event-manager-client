@@ -54,11 +54,11 @@ describe('Test Associating an Class', () => {
 			classTest.associateEntities({ name: 'resource', mocks });
 		});
 	});
-	// it('Disassociates an Class with a resource', () => {
-	// 	const classTest = new cy.Entity('class');
-	// 	const mocks = {};
-	// 	cy.fixture('deleting/listResource.json').then((listMock) => {
-	// 		classTest.disassociateEntities({ name: 'resource', mocks }, listMock, {});
-	// 	});
-	// });
+	it('Disassociates an Class with a resource', () => {
+		const classTest = new cy.Entity('class');
+		const mocks = {};
+		cy.fixture('deleting/listResource.json').then((listMock) => {
+			classTest.disassociateEntities({ name: 'resource', mocks }, listMock, {});
+		});
+	});
 });

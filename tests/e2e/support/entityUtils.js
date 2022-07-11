@@ -440,6 +440,7 @@ export default class EntityTest {
 				}
 			});
 		});
+		cy.wait(1000);
 		cy.get('#associate_btn').click();
 		cy.wait(`@${Entity.variablesNames.associateRequest}`).then((res) => {
 			cy.wrap(res.response.statusCode).should('eq', 200);
