@@ -123,7 +123,7 @@ export default defineComponent({
 					this.loading = false;
 				});
 		},
-		refetchList(listType: string) {
+		refetchList(listType?: string) {
 			if (listType === 'class') {
 				(this.$refs.classList as typeof ClassList).fetch();
 			} else if (listType === 'event') {
@@ -144,6 +144,18 @@ export default defineComponent({
 	},
 	created() {
 		this.fetch();
+	},
+	watch: {
+		$route: {
+			handler(newVal) {
+				if (newVal.name === 'detailsResource') {
+					setTimeout(() => {
+						this.refetchList();
+					}, 100);
+				}
+			},
+			deep: true,
+		},
 	},
 });
 </script>

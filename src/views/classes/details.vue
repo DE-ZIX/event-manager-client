@@ -27,6 +27,7 @@
 					v-if="modelValue.id"
 					ref="resourceList"
 					:modelValue="modelValue"
+					modelValueType="Class"
 					:addNewLink="{ name: 'detailsClassAddResource' }"
 					getResources
 					extraTitle="(Resources in which this class belongs to)"
