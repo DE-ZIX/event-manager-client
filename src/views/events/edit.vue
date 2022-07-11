@@ -2,7 +2,14 @@
 	<div v-if="modelValue.id">
 		<h5>Edit Event - {{ modelValue.title }}</h5>
 		<event-form v-model="modelValue" />
-		<q-btn @click="save" class="q-mt-lg" label="Save" color="primary" no-caps />
+		<q-btn
+			@click="save"
+			id="save_btn"
+			class="q-mt-lg"
+			label="Save"
+			color="primary"
+			no-caps
+		/>
 	</div>
 </template>
 

@@ -1,12 +1,13 @@
 <template>
-	<q-dialog v-model="model">
+	<q-dialog id="delete_modal" v-model="model">
 		<q-card>
-			<q-card-section>
+			<q-card-section class="delete_message">
 				Confirm the deletion of this {{ typeCapitalized }} {{ name }} ?
 			</q-card-section>
 			<q-card-actions>
 				<q-btn
 					flat
+					id="delete_btn"
 					v-close-popup
 					color="primary"
 					@click="confirmDelete"

@@ -1,5 +1,5 @@
 <template>
-	<q-dialog v-model="showComp">
+	<q-dialog id="associate_modal" v-model="showComp">
 		<q-card style="width: 500px">
 			<q-card-section>
 				<div class="row items-center justify-between">
@@ -19,6 +19,7 @@
 					:options="options"
 					:loading="loadingOptions"
 					v-model="value"
+					id="associate_select"
 					option-label="title"
 					clearable
 					option-value="id"
@@ -38,6 +39,7 @@
 					flat
 					v-close-popup
 					color="primary"
+					id="associate_btn"
 					@click="addResource"
 					:disable="!value || !value.id"
 					label="Add"

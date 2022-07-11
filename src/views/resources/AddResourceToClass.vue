@@ -1,5 +1,5 @@
 <template>
-	<q-dialog v-model="showComp">
+	<q-dialog id="associate_modal" v-model="showComp">
 		<q-card style="width: 500px">
 			<q-card-section>
 				<div class="row items-center justify-between">
@@ -20,6 +20,7 @@
 					:loading="loadingOptions"
 					v-model="value"
 					option-label="title"
+					id="associate_select"
 					clearable
 					option-value="id"
 				>
@@ -39,6 +40,7 @@
 					v-close-popup
 					color="primary"
 					@click="add"
+					id="associate_btn"
 					:disable="!value || !value.id"
 					label="Add"
 					no-caps
