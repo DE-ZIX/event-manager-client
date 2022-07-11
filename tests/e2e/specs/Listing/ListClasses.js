@@ -31,7 +31,7 @@ describe('Classes listing test', () => {
 				.within(() => {
 					cy.get('td').eq(0).should('contain', firstItem.id);
 					cy.get('td').eq(1).should('contain', firstItem.title);
-					cy.get('td').eq(2).should('contain', firstItem.updatedAt);
+					cy.get('td').eq(2).should('contain', firstItem.updatedDate);
 				});
 		});
 	});

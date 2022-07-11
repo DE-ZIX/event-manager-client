@@ -356,7 +356,7 @@ export default class EntityTest {
 	}
 	associateEntities(entity) {
 		const Entity = new cy.Entity(entity.name);
-		const { mocks } = entity;
+		const mocks = entity.mocks || {};
 		this.interceptListRoute(mocks.listClass);
 		this.interceptGetRoute(mocks.getClass);
 
@@ -450,6 +450,7 @@ export default class EntityTest {
 		});
 		cy.get('.q-notification.bg-positive').should('exist');
 		cy.wait(1000);
+		Entity.checkListView();
 		Entity.getListRows()
 			.eq(1)
 			.within(() => {
@@ -457,7 +458,6 @@ export default class EntityTest {
 					cy.get('td').first().should('have.text', id);
 				});
 			});
-		Entity.checkListView();
 	}
 	disassociateEntities(entity, listMock, getMock) {
 		const Entity = new cy.Entity(entity.name);
