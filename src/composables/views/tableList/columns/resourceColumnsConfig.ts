@@ -25,12 +25,12 @@ export default [
 	{
 		name: 'createdAt',
 		label: 'Created At',
-		field: 'createdAt',
+		field: 'createdDate',
 	},
 	{
 		name: 'updatedAt',
 		label: 'Updated At',
-		field: 'updatedAt',
+		field: 'updatedDate',
 	},
 	{
 		name: 'keywords',

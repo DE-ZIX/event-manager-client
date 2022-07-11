@@ -13,6 +13,6 @@ export default [
 	{
 		name: 'updatedAt',
 		label: 'Updated At',
-		field: 'updatedAt',
+		field: 'updatedDate',
 	},
 ];
