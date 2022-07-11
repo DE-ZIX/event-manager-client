@@ -8,6 +8,7 @@
 			<router-link :to="addNewLinkComp">
 				<q-btn
 					round
+					id="add_btn"
 					color="primary"
 					icon="add"
 					size="sm"
@@ -94,6 +95,10 @@ export default defineComponent({
 			required: false,
 			default: '',
 		},
+		modelValueType: {
+			type: String,
+			required: false,
+		},
 	},
 	components: {
 		TableList,
@@ -128,7 +133,9 @@ export default defineComponent({
 			return { name: `add${this.typeCapitalized}` };
 		},
 		modelTypeNamePlural(): string {
-			const name = (this.modelValue?.constructor.name + '').toLowerCase();
+			const name =
+				(this.modelValueType + '').toLowerCase() ||
+				(this.modelValue?.constructor.name + '').toLowerCase();
 			if (name === 'event') {
 				return 'events';
 			}

@@ -9,6 +9,7 @@
 		:addNewLink="addNewLink"
 		:getResources="getResources"
 		:modelValue="modelValue"
+		:modelValueType="modelValueType"
 		:extraTitle="extraTitle"
 	/>
 </template>
@@ -41,6 +42,10 @@ export default defineComponent({
 			type: String,
 			required: false,
 			default: '',
+		},
+		modelValueType: {
+			type: String,
+			required: false,
 		},
 	},
 	components: {
