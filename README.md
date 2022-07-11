@@ -77,6 +77,12 @@ yarn test:e2e
 yarn lint
 ```
 
+### Run e2e tests with mocks
+
+```
+yarn test:e2e --env use_mock=true
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
