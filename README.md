@@ -83,6 +83,12 @@ yarn lint
 yarn test:e2e --env use_mock=true
 ```
 
+### Run e2e and record
+
+```
+yarn cypress run --record --key 747eced2-a43e-4eb4-9e1e-fcdaf7d57398
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
