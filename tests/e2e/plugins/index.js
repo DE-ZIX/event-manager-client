@@ -8,7 +8,6 @@
 
 // /* eslint-disable import/no-extraneous-dependencies, global-require */
 // const webpack = require('@cypress/webpack-preprocessor');
-
 module.exports = (on, config) => {
 	// on(
 	// 	'file:preprocessor',
@@ -17,6 +16,10 @@ module.exports = (on, config) => {
 	// 		watchOptions: {},
 	// 	}),
 	// );
+	require('@cypress/code-coverage/task')(on, config);
+	// include any other plugin code...
+	// It's IMPORTANT to return the config object
+	// with any changed environment variables
 
 	return Object.assign({}, config, {
 		fixturesFolder: 'tests/e2e/fixtures',

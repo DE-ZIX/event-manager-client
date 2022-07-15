@@ -10,5 +10,11 @@ module.exports = {
 				},
 			},
 		],
+		[
+			'babel-plugin-istanbul',
+			{
+				extension: ['.js', '.ts', '.vue'],
+			},
+		],
 	],
 };
